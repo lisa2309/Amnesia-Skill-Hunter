@@ -21,22 +21,19 @@ public class Bullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + new Vector2(transform.right.x, 0.0f) * velocity * Time.fixedDeltaTime);
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
+        if ((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
             Destroy(gameObject);
         }
         else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
-            //damage target
             Enemy hitEnemy = collision.gameObject.GetComponent<Enemy>();
             if (hitEnemy != null)
             {
@@ -49,10 +46,8 @@ public class Bullet : MonoBehaviour
                 {
                     FindObjectOfType<LevelLoader>().RestartLevel();
                 }
-                
             }
             Destroy(gameObject);
-            Debug.Log("target hit");
         }
     }
 }

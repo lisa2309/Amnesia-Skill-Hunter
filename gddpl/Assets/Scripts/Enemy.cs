@@ -20,7 +20,6 @@ public class Enemy : MonoBehaviour
     private float turnDistance = 1.0f;
     [SerializeField]
     private LayerMask obstacles;
-    
 
     [Header("Shooting Parameters")]
     [SerializeField]
@@ -77,10 +76,11 @@ public class Enemy : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(scanPoint.position, transform.right, 100.0f, visibleLayers);
         if (hit.collider != null)
         {
-            if ((targetLayers.value & (1 << hit.collider.gameObject.layer)) > 0)
-            {
-                playerHit = true;
-            }
+            playerHit = (targetLayers.value & (1 << hit.collider.gameObject.layer)) > 0;
+            //if ((targetLayers.value & (1 << hit.collider.gameObject.layer)) > 0)
+            //{
+            //    playerHit = true;
+            //}
         }
         return playerHit;
     }
