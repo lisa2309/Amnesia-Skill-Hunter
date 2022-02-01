@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     //cached references
-    private PlayerControls controls;
+    //private PlayerControls controls;
     private Animator animator;
     //private PlayerMovement playerMovement;
 
@@ -30,11 +30,11 @@ public class PlayerShoot : MonoBehaviour
    
 
     private void Awake()
-    {
+    {/*
         controls = new PlayerControls();
 
         controls.Gameplay.Shoot.performed += context => StartShooting();
-        controls.Gameplay.Shoot.canceled += context => StopShooting();
+        controls.Gameplay.Shoot.canceled += context => StopShooting();*/
     }
 
     private void Start()
@@ -71,7 +71,7 @@ public class PlayerShoot : MonoBehaviour
         yield return new WaitForSeconds(bulletSpawnInterval);
         if (shooting) StartCoroutine(SpawnBullet());
     }
-
+    /*
     private void OnEnable()
     {
         controls.Enable();
@@ -81,6 +81,6 @@ public class PlayerShoot : MonoBehaviour
     {
         controls.Disable();
     }
-
+    */
 
 }

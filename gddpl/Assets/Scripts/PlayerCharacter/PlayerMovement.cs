@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
+using UnityEngine.InputSystem.Controls;
 
 public class PlayerMovement : MonoBehaviour
 {
     //cached references
-    private PlayerControls controls;
+    private Controls controls;
     private Rigidbody2D rb;
     private Animator animator;
 
@@ -52,13 +52,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        controls = new PlayerControls();
+        controls = new Controls();
 
-        controls.Gameplay.MoveHorizontal.performed += context => horizontalInput = context.ReadValue<float>();
-        controls.Gameplay.MoveHorizontal.canceled += context => horizontalInput = 0.0f;
+        controls.Gameplay.Run.performed += context => horizontalInput = context.ReadValue<float>();
+        controls.Gameplay.Run.canceled += context => horizontalInput = 0.0f;
 
-        controls.Gameplay.Jump.performed += context => SetEarlyJumpTimer();
-        controls.Gameplay.Jump.canceled += context => CancleJump();
     }
 
     private void Start()
@@ -90,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
 
         //animation
-        animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
+        //animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
     }
 
     public void SetRunSpeedModifier(float modifier)
@@ -125,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         rememberGroundedTimer = 0.0f;
 
         //animations
-        animator.SetTrigger("Jump");
+        //animator.SetTrigger("Jump");
     }
 
     private void CancleJump()
@@ -145,9 +143,9 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = 1.0f;
 
             //animations
-            animator.SetBool("Falling", false);
+            //animator.SetBool("Falling", false);
         }
-        animator.SetBool("Grounded", grounded);
+        //animator.SetBool("Grounded", grounded);
     }
 
     private void ApplyFallingGravityScale()
@@ -157,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = fallingGravityScale;
 
             //animations
-            animator.SetBool("Falling", true);
+            //animator.SetBool("Falling", true);
         }
     }
 
