@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         Run();
         if (earlyJumpTimer > 0.0f && rememberGroundedTimer > 0.0f) Jump();
 
-        //Flip();
+        Flip();
     }
 
     private void Run()
@@ -155,11 +155,12 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    /*private void Flip()
+    
+    private void Flip()
     {
         if (rb.velocity.x > 0.0f) transform.eulerAngles = Vector3.zero;
         else if (rb.velocity.x < 0.0f) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
-    }*/
+    }
 
     private void OnEnable()
     {
