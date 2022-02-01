@@ -33,6 +33,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Power"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1a7926b-3913-4780-a4c2-c787d30b63e2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -79,6 +87,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Melee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1acf05a1-bcf2-459b-9307-68ca6cce514a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Power"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -89,6 +108,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
         m_Gameplay_Melee = m_Gameplay.FindAction("Melee", throwIfNotFound: true);
+        m_Gameplay_Power = m_Gameplay.FindAction("Power", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -140,12 +160,14 @@ public class @Controls : IInputActionCollection, IDisposable
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Run;
     private readonly InputAction m_Gameplay_Melee;
+    private readonly InputAction m_Gameplay_Power;
     public struct GameplayActions
     {
         private @Controls m_Wrapper;
         public GameplayActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Run => m_Wrapper.m_Gameplay_Run;
         public InputAction @Melee => m_Wrapper.m_Gameplay_Melee;
+        public InputAction @Power => m_Wrapper.m_Gameplay_Power;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -161,6 +183,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Melee.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMelee;
                 @Melee.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMelee;
                 @Melee.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMelee;
+                @Power.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPower;
+                @Power.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPower;
+                @Power.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPower;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -171,6 +196,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Melee.started += instance.OnMelee;
                 @Melee.performed += instance.OnMelee;
                 @Melee.canceled += instance.OnMelee;
+                @Power.started += instance.OnPower;
+                @Power.performed += instance.OnPower;
+                @Power.canceled += instance.OnPower;
             }
         }
     }
@@ -179,5 +207,6 @@ public class @Controls : IInputActionCollection, IDisposable
     {
         void OnRun(InputAction.CallbackContext context);
         void OnMelee(InputAction.CallbackContext context);
+        void OnPower(InputAction.CallbackContext context);
     }
 }
