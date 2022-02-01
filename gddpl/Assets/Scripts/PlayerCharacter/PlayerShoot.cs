@@ -28,11 +28,11 @@ public class PlayerShoot : MonoBehaviour
     private Transform shootPoint;
 
     private void Awake()
-    {/*
-        controls = new PlayerControls();
+    {
+        controls = new Controls();
 
-        controls.Gameplay.Shoot.performed += context => StartShooting();
-        controls.Gameplay.Shoot.canceled += context => StopShooting();*/
+        controls.Gameplay.Power.performed += context => StartShooting();
+        controls.Gameplay.Power.canceled += context => StopShooting();
     }
     private void Start()
     {
