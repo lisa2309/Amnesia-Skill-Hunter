@@ -7,7 +7,8 @@ public class PlayerShoot : MonoBehaviour
     //cached references
     //private PlayerControls controls;
     private Animator animator;
-    //private PlayerMovement playerMovement;
+    private PlayerMovement movement;
+    private Controls controls;
 
     //state
     private bool shooting;
@@ -18,16 +19,13 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private float bulletSpawnInterval = 0.5f;
     [SerializeField]
-    private float shootingRunModiefier = 0.66f;
-
+    private float shootingRunModifier = 0.66f;
 
     [Header("Manual References")]
     [SerializeField]
     private GameObject bulletPrefab;
     [SerializeField]
     private Transform shootPoint;
-
-   
 
     private void Awake()
     {/*
@@ -36,11 +34,11 @@ public class PlayerShoot : MonoBehaviour
         controls.Gameplay.Shoot.performed += context => StartShooting();
         controls.Gameplay.Shoot.canceled += context => StopShooting();*/
     }
-
     private void Start()
     {
         animator = GetComponent<Animator>();
-        //playerMovement = GetComponent<PlayerMovement>();
+
+        movement = GetComponent<PlayerMovement>();
     }
 
     private void StartShooting()
@@ -53,34 +51,34 @@ public class PlayerShoot : MonoBehaviour
         //animation
         animator.SetBool("Croushing", true);
 
-        
-    }
+        movement.SetRunSpeedModifier(shootingRunModifier);
 
+        //animation
+        animator.SetBool("Shooting", true);
+    }
     private void StopShooting()
     {
         shooting = false;
         StopCoroutine(currentSpawnBulletInstance);
-        //playerMovement.ResetRunspeedModifier();
+
+        movement.ResetRunSpeedModifier();
+
         //animation
         animator.SetBool("Croushing", false);
     }
-
     private IEnumerator SpawnBullet()
     {
         Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
         yield return new WaitForSeconds(bulletSpawnInterval);
         if (shooting) StartCoroutine(SpawnBullet());
     }
-    /*
+
     private void OnEnable()
     {
         controls.Enable();
     }
-
     private void OnDisable()
     {
         controls.Disable();
     }
-    */
-
 }

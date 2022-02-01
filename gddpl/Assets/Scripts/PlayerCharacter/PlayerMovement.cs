@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
-
     //state
     private float horizontalInput;
     private bool grounded;
@@ -30,25 +29,23 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jump Parameters")]
     [SerializeField]
-    private float jumpHeight = 100.0f;
+    private float jumpHeight = 3.0f;
     [SerializeField]
-    private float lowJumpGravityScale = 2.0f;
+    private float lowJumpGravityScale = 3.0f;
     [SerializeField]
-    private float fallingGravityScale = 3.0f;
-    [SerializeField]
-    private BoxCollider2D feetCollider;
+    private float fallingGravityScale = 2.0f;
     [SerializeField]
     private LayerMask walkableLayers;
     [SerializeField]
     private float timeToRememberEarlyJump = 0.2f;
     [SerializeField]
-    private float timeToRememberGrounded = 0.125f;
-    [SerializeField] [Range(0.0f,  1.0f)]
-    private float relativeMinJumpDuaration = 0.33f;
+    private float timeToRemberGrounded = 0.125f;
+    [SerializeField] [Range(0.0f, 1.0f)]
+    private float relativeMinJumpDuration = 0.33f;
 
     [Header("References")]
     [SerializeField]
-    private float initialJumpSpeed = 6.0f;
+    private BoxCollider2D feetCollider;
 
     private void Awake()
     {
@@ -57,8 +54,10 @@ public class PlayerMovement : MonoBehaviour
         controls.Gameplay.Run.performed += context => horizontalInput = context.ReadValue<float>();
         controls.Gameplay.Run.canceled += context => horizontalInput = 0.0f;
 
-    }
+        controls.Gameplay.Jump.performed += context => SetEarlyJumpTimer();
+        controls.Gameplay.Jump.canceled += context => CancelJump();
 
+    }
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -66,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
 
         CalculateJumpParameters();
     }
-
     private void FixedUpdate()
     {
         CheckGrounded();
@@ -74,10 +72,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateTimers();
 
         Run();
-        if (earlyJumpTimer > 0 && rememberGroundedTimer > 0.0f)
-        {
-            Jump();
-        }
+        if (earlyJumpTimer > 0.0f && rememberGroundedTimer > 0.0f) Jump();
 
         Flip();
     }
@@ -90,113 +85,86 @@ public class PlayerMovement : MonoBehaviour
         //animation
         //animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
     }
-
     public void SetRunSpeedModifier(float modifier)
     {
         runSpeedModifier = modifier;
     }
-
-    public void ResetRunspeedModifier()
+    public void ResetRunSpeedModifier()
     {
         runSpeedModifier = 1.0f;
     }
 
-
-    private void Flip()
-    {
-        if (rb.velocity.x > 0.0f)
-        {
-            transform.eulerAngles = Vector3.zero;
-        }
-        else if (rb.velocity.x < 0.0f)
-        {
-            transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
-        }
-    }
     private void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, initialJumpVelocity);
         jumpTimer = maxJumpDuration;
-        
 
         earlyJumpTimer = 0.0f;
         rememberGroundedTimer = 0.0f;
 
-        //animations
-        //animator.SetTrigger("Jump");
+        //animation
+        animator.SetTrigger("Jump");
     }
-
-    private void CancleJump()
+    private void CancelJump()
     {
-        if (jumpTimer > 0.0f)
-        {
-            lowJump = true;
-        }
+        if (jumpTimer > 0.0f) lowJump = true;
     }
-
     private void CheckGrounded()
     {
         grounded = feetCollider.IsTouchingLayers(walkableLayers);
         if (grounded)
         {
-            rememberGroundedTimer = timeToRememberGrounded;
+            rememberGroundedTimer = timeToRemberGrounded;
             rb.gravityScale = 1.0f;
 
-            //animations
-            //animator.SetBool("Falling", false);
+            //animation
+            animator.SetBool("Falling", false);
         }
         //animator.SetBool("Grounded", grounded);
     }
-
     private void ApplyFallingGravityScale()
     {
-        if (rb.velocity.y < 0.0f && !grounded)
+        if (rb.velocity.y < 0.0f && !grounded) // Fix für Animation
         {
             rb.gravityScale = fallingGravityScale;
 
-            //animations
-            //animator.SetBool("Falling", true);
+            //animation
+            animator.SetBool("Falling", true);
         }
     }
-
     private void SetEarlyJumpTimer()
     {
         earlyJumpTimer = timeToRememberEarlyJump;
     }
-
     private void CalculateJumpParameters()
     {
         maxJumpDuration = Mathf.Sqrt(-2.0f * jumpHeight / Physics2D.gravity.y);
         initialJumpVelocity = 2.0f * jumpHeight / maxJumpDuration;
     }
-
     private void UpdateTimers()
     {
-        if (earlyJumpTimer > 0.0f)
-        {
-            earlyJumpTimer -= Time.fixedDeltaTime;
-        }
-        if (rememberGroundedTimer > 0.0f)
-        {
-            rememberGroundedTimer -= Time.fixedDeltaTime;
-        }
+        if (earlyJumpTimer > 0.0f) earlyJumpTimer -= Time.fixedDeltaTime;
+        if (rememberGroundedTimer > 0.0f) rememberGroundedTimer -= Time.fixedDeltaTime;
         if (jumpTimer > 0.0f)
         {
             jumpTimer -= Time.fixedDeltaTime;
-            if (lowJump && jumpTimer <= maxJumpDuration * (1.0f - relativeMinJumpDuaration))
+            if (lowJump && jumpTimer <= maxJumpDuration * (1.0f - relativeMinJumpDuration))
             {
                 lowJump = false;
                 rb.gravityScale = lowJumpGravityScale;
             }
-                
         }
+    }
+    private void Flip()
+    {
+        if (rb.velocity.x > 0.0f) transform.eulerAngles = Vector3.zero;
+        else if (rb.velocity.x < 0.0f) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
     }
 
     private void OnEnable()
     {
         controls.Enable();
     }
-
     private void OnDisable()
     {
         controls.Disable();

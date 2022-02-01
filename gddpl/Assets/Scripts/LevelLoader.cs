@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    //state 
+    //state
     private int enemyCount;
 
     private void Start()
