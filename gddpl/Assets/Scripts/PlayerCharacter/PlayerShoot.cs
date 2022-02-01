@@ -7,7 +7,7 @@ public class PlayerShoot : MonoBehaviour
     //cached references
     private PlayerControls controls;
     private Animator animator;
-    private PlayerMovement playerMovement;
+    //private PlayerMovement playerMovement;
 
     //state
     private bool shooting;
@@ -40,17 +40,18 @@ public class PlayerShoot : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        playerMovement = GetComponent<PlayerMovement>();
+        //playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void StartShooting()
     {
         shooting = true;
         currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
-        playerMovement.SetRunSpeedModifier(shootingRunModiefier);
+        Debug.Log("HALLOOO");
+        //playerMovement.SetRunSpeedModifier(shootingRunModiefier);
 
         //animation
-        animator.SetBool("Shooting", true);
+        animator.SetBool("Croushing", true);
 
         
     }
@@ -59,9 +60,9 @@ public class PlayerShoot : MonoBehaviour
     {
         shooting = false;
         StopCoroutine(currentSpawnBulletInstance);
-        playerMovement.ResetRunspeedModifier();
+        //playerMovement.ResetRunspeedModifier();
         //animation
-        animator.SetBool("Shooting", false);
+        animator.SetBool("Croushing", false);
     }
 
     private IEnumerator SpawnBullet()

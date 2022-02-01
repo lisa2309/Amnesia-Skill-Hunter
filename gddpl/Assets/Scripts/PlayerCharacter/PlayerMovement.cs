@@ -54,8 +54,8 @@ public class PlayerMovement : MonoBehaviour
     {
         controls = new PlayerControls();
 
-        controls.Gameplay.Move.performed += context => horizontalInput = context.ReadValue<float>();
-        controls.Gameplay.Move.canceled += context => horizontalInput = 0.0f;
+        controls.Gameplay.MoveHorizontal.performed += context => horizontalInput = context.ReadValue<float>();
+        controls.Gameplay.MoveHorizontal.canceled += context => horizontalInput = 0.0f;
 
         controls.Gameplay.Jump.performed += context => SetEarlyJumpTimer();
         controls.Gameplay.Jump.canceled += context => CancleJump();

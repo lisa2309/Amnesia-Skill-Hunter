@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("WAS");
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -30,9 +31,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("WIESOOO");
         if((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
             Destroy(gameObject);
+            Debug.Log("LOL");
         }
         else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
