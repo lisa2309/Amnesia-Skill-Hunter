@@ -41,3 +41,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 778515969
+    locked: 0
+  - name: Waende
+    uniqueID: 1122432401
+    locked: 0
+  - name: DirektHinterHaesern
+    uniqueID: 3014860057
+    locked: 0
+  - name: Haeuser
+    uniqueID: 2960249985
+    locked: 0
+  - name: Kisten
+    uniqueID: 2488395681
+    locked: 0
+  - name: PlayerCharacter
+    uniqueID: 3182918705
+    locked: 0
+  - name: Floor
+    uniqueID: 2130190297
+    locked: 0
