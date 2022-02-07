@@ -43,6 +43,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [Range(0.0f, 1.0f)]
     private float relativeMinJumpDuration = 0.33f;
 
+    [Header("Dash Parameters")]
+    [SerializeField]
+    private float dashSpeed = 400f;
+    [SerializeField]
+    private float startDashTime;
+    private float dashTime;
+    public bool dashing;
+    private Vector2 dashDirection;
+
     [Header("References")]
     [SerializeField]
     private BoxCollider2D feetCollider;
@@ -72,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateTimers();
 
         Run();
+        if(dashing) Dash();
         if (earlyJumpTimer > 0.0f && rememberGroundedTimer > 0.0f) Jump();
 
         Flip();
@@ -160,6 +170,28 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.velocity.x > 0.0f) transform.eulerAngles = Vector3.zero;
         else if (rb.velocity.x < 0.0f) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
+    }
+
+    public void Dash()
+    {
+        if (dashTime <= 0)
+        {
+            dashDirection = new Vector2(0,0);
+            dashing = false;
+        }
+        else
+        {
+            dashTime -= Time.fixedDeltaTime;
+
+            rb.velocity = dashDirection * dashSpeed;
+        }
+    }
+
+    public void startDash(Vector2 direction) 
+    {
+        dashing = true;
+        dashTime = startDashTime;
+        dashDirection = direction;
     }
 
     private void OnEnable()

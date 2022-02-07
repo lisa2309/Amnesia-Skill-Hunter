@@ -32,8 +32,6 @@ public class PlayerMeele : MonoBehaviour
         {
             Attack();
         }
-       
-        Debug.Log(attacking);
     }
 
     private void Attack()
