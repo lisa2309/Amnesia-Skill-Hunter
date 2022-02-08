@@ -45,9 +45,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Dash Parameters")]
     [SerializeField]
+    private Transform characterCenter;
+    [SerializeField]
     private float dashSpeed = 400f;
     [SerializeField]
     private float startDashTime;
+    [SerializeField]
+    private LayerMask enemyLayers;
     private float dashTime;
     public bool dashing;
     private Vector2 dashDirection;
@@ -76,13 +80,16 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        animator.SetBool("Dashing", dashing);
         CheckGrounded();
         ApplyFallingGravityScale();
         UpdateTimers();
 
         Run();
-        if(dashing) Dash();
-        if (earlyJumpTimer > 0.0f && rememberGroundedTimer > 0.0f) Jump();
+        if(dashing)
+            Dash();
+        if (earlyJumpTimer > 0.0f && rememberGroundedTimer > 0.0f) 
+            Jump();
 
         Flip();
     }
@@ -174,16 +181,31 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dash()
     {
+        Physics2D.IgnoreLayerCollision(6, 7, true);
+        DealDashDamage();
+
         if (dashTime <= 0)
         {
             dashDirection = new Vector2(0,0);
             dashing = false;
+            rb.velocity = Vector2.zero;
         }
         else
         {
             dashTime -= Time.fixedDeltaTime;
-
             rb.velocity = dashDirection * dashSpeed;
+            Physics2D.IgnoreLayerCollision(6, 7, false);
+        }
+    }
+
+    private void DealDashDamage()
+    {
+        var hitEnemies = Physics2D.OverlapCircleAll(characterCenter.position, 0.1f, enemyLayers);
+
+        foreach (var enemy in hitEnemies)
+        {
+            Debug.Log("ATTACK!");
+            enemy.GetComponent<EnemyHealth>().LooseHealth(1);
         }
     }
 

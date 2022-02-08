@@ -92,7 +92,6 @@ public class PlayerShoot : MonoBehaviour
 
     private void Dash()
     {
-        var test = Cursor.lockState;
         var mousepostionRaw = (Vector3)controls.Gameplay.MousePosition.ReadValue<Vector2>();
         mousepostionRaw.z = 1.0f;//camera.farClipPlane / 2f;
         var mousePositionWorld = camera.ScreenToWorldPoint(mousepostionRaw);
@@ -159,7 +158,7 @@ public class PlayerShoot : MonoBehaviour
         if (shooting) StartCoroutine(SpawnBullet());
     }
 
-    private void GetAbilty(Ability ability)
+    private void SetAbility(Ability ability)
     {
         this.currentAbility = ability;
     }

@@ -8,6 +8,7 @@ public class DasherBehavior : MonoBehaviour
     private Transform playerDetector;
     [SerializeField]
     private Transform attackPoint;
+    
     [SerializeField]
     private float attackRange;
     [SerializeField]
@@ -34,7 +35,6 @@ public class DasherBehavior : MonoBehaviour
     private Rigidbody2D rb;
     private EnemyHealth health;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,7 +42,6 @@ public class DasherBehavior : MonoBehaviour
         health = GetComponent<EnemyHealth>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Flip();
