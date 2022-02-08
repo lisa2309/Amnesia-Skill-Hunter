@@ -25,18 +25,21 @@ public class DasherBehavior : MonoBehaviour
     private float attackPrepTime;
     private Vector3 dashDirection;
     private bool dashing;
-    private Rigidbody2D rb;
     private float attackTimeOut;
-    private Animator animator;
+    
     private float hitTimeOut;
     private float startHitTimeOut = 1f;
+
+    private Animator animator;
+    private Rigidbody2D rb;
+    private EnemyHealth health;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        hitTimeOut = 0;
+        health = GetComponent<EnemyHealth>();
     }
 
     // Update is called once per frame
@@ -86,7 +89,7 @@ public class DasherBehavior : MonoBehaviour
 
     private void startDash(Vector3 playerPosition)
     {
-        dashing = true;
+        //dashing = true;
         dashTime = startDashTime;
         dashDirection = (playerPosition - this.transform.position).normalized;
 

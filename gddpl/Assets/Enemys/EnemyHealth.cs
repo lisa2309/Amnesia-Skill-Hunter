@@ -8,10 +8,11 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField]
     int hitpoints;
 
-    // Start is called before the first frame update
-    void Start()
+    private Animator animator;
+
+    private void Awake()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -20,9 +21,10 @@ public class EnemyHealth : MonoBehaviour
         
     }
 
-    public void TakeDamage(int damage)
+    public void LooseHealth(int damage)
     {
         hitpoints -= damage;
+        animator.SetTrigger("Hit");
     }
 
 }
