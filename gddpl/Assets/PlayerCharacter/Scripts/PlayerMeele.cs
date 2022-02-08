@@ -42,7 +42,15 @@ public class PlayerMeele : MonoBehaviour
 
         foreach(var enemy in hitEnemies)
         {
-            //Damage enemies
+            enemy.GetComponent<EnemyHealth>().TakeDamage(1);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) 
+            return;
+
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

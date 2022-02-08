@@ -6,10 +6,18 @@ public class PlayerHealth : MonoBehaviour
 {
     //state
     private int currentHealth;
+    
 
     //config
     [SerializeField]
     private int maxHealth = 3;
+
+    private Animator animator;
+
+    public void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -19,6 +27,8 @@ public class PlayerHealth : MonoBehaviour
     public bool LooseHealth(int damage)
     {
         currentHealth -= damage;
+        Debug.Log("Got Damaged: " + damage);
+        animator.SetTrigger("Hit");
         return currentHealth <= 0;
     }
 }
