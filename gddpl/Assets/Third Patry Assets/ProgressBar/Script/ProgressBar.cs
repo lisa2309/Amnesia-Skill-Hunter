@@ -71,7 +71,7 @@ public class ProgressBar : MonoBehaviour
         barBackground.color = BarBackGroundColor; 
         barBackground.sprite = BarBackGroundSprite;
 
-        player = GameObject.Find("PlayerCharacter");
+        //player = GameObject.Find("PlayerCharacter");
         maxHealth = player.GetComponent<PlayerHealth>().maxHealth;
 
         UpdateValue(barValue);

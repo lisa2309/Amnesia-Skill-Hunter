@@ -189,12 +189,13 @@ public class PlayerMovement : MonoBehaviour
             dashDirection = new Vector2(0,0);
             dashing = false;
             rb.velocity = Vector2.zero;
+            Physics2D.IgnoreLayerCollision(6, 7, true);
         }
         else
         {
             dashTime -= Time.fixedDeltaTime;
             rb.velocity = dashDirection * dashSpeed;
-            Physics2D.IgnoreLayerCollision(6, 7, false);
+            Physics2D.IgnoreLayerCollision(6, 7, true);
         }
     }
 

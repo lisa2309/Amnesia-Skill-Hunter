@@ -93,7 +93,7 @@ public class PlayerShoot : MonoBehaviour
     private void Dash()
     {
         var mousepostionRaw = (Vector3)controls.Gameplay.MousePosition.ReadValue<Vector2>();
-        mousepostionRaw.z = 1.0f;//camera.farClipPlane / 2f;
+        mousepostionRaw.z = 1.0f;
         var mousePositionWorld = camera.ScreenToWorldPoint(mousepostionRaw);
         var directionVector = mousePositionWorld - this.transform.position;
         movement.startDash(directionVector.normalized);

@@ -88,7 +88,7 @@ public class DasherBehavior : MonoBehaviour
 
     private void startDash(Vector3 playerPosition)
     {
-        //dashing = true;
+        dashing = true;
         dashTime = startDashTime;
         dashDirection = (playerPosition - this.transform.position).normalized;
 

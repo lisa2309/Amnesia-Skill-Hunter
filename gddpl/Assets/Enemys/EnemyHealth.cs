@@ -15,12 +15,6 @@ public class EnemyHealth : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void LooseHealth(int damage)
     {
         hitpoints -= damage;
