@@ -6,14 +6,19 @@ public class PlayerHealth : MonoBehaviour
 {
     //state
     private int currentHealth;
+    public ProgressBar pb;
 
     //config
     [SerializeField]
-    private int maxHealth = 3;
+    public int maxHealth = 10;
 
     private void Start()
     {
         currentHealth = maxHealth;
+    }
+
+    private void Update(){
+        pb.BarValue = currentHealth;
     }
 
     public bool LooseHealth(int damage)

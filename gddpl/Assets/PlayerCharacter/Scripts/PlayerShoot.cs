@@ -13,7 +13,7 @@ public class PlayerShoot : MonoBehaviour
     //state
     private bool shooting;
     private Coroutine currentSpawnBulletInstance;
-    private Ability currentAbility = Ability.None;
+    private Ability currentAbility = Ability.Fireball;
 
     //config
     [Header("Shooting")]
@@ -66,18 +66,18 @@ public class PlayerShoot : MonoBehaviour
 
     private void ShootFireball()
     {
-        shooting = true;
-        currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
-        Debug.Log("HALLOOO");
-        //playerMovement.SetRunSpeedModifier(shootingRunModiefier);
+        if(GameObject.Find("FireBall") == null && GameObject.Find("FireBall(Clone)") == null)
+        {
+            shooting = true;
+            currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
+            //playerMovement.SetRunSpeedModifier(shootingRunModiefier);
 
-        //animation
-        animator.SetBool("Croushing", true);
+            //animation
+            animator.SetBool("Croushing", true);
 
-        movement.SetRunSpeedModifier(shootingRunModifier);
+            movement.SetRunSpeedModifier(shootingRunModifier);
+        }
 
-        //animation
-        animator.SetBool("Shooting", true);
     }
 
     private void ShootBow()
