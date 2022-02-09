@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bullet : MonoBehaviour
 {
@@ -16,26 +17,34 @@ public class Bullet : MonoBehaviour
     private LayerMask stoppingLayers;
     [SerializeField]
     private LayerMask targetLayers;
+    private Animator animator;
+    bool isTriggered = false;
+    [SerializeField]
+    private int damageRange = 2;
 
     private void Start()
     {
-        Debug.Log("WAS");
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + new Vector2(transform.right.x, 0.0f) * velocity * Time.fixedDeltaTime);
+        if(!isTriggered){
+            rb.MovePosition(rb.position + new Vector2(transform.right.x, 0.0f) * velocity * Time.fixedDeltaTime);
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("WIESOOO");
-        if((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
+        
+        CircleCollider2D coll = gameObject.GetComponent<CircleCollider2D>();
+        coll.radius = damageRange;
+        isTriggered = true;
 
         if ((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
-            Destroy(gameObject);
-            Debug.Log("LOL");
+            animator.SetTrigger("Expliosen");
         }
         else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
@@ -43,16 +52,17 @@ public class Bullet : MonoBehaviour
             if (hitEnemy != null)
             {
                 Destroy(hitEnemy.gameObject);
-                FindObjectOfType<LevelLoader>().DecrementEnemyCount();
+                //FindObjectOfType<LevelLoader>().DecrementEnemyCount();
             }
             else
             {
                 if (collision.gameObject.GetComponent<PlayerHealth>().LooseHealth(damage))
                 {
-                    FindObjectOfType<LevelLoader>().RestartLevel();
+                    SceneManager.LoadScene("Lisa's Scene");
+                    //FindObjectOfType<LevelLoader>().RestartLevel();
                 }
             }
-            Destroy(gameObject);
+            animator.SetTrigger("Expliosen");
         }
     }
 }
