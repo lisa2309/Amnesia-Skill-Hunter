@@ -35,6 +35,8 @@ public class BowMan : MonoBehaviour
     private LayerMask visibleLayers;
     [SerializeField]
     private GameObject ArrowPrefab;
+    [SerializeField]
+    private float vision = 50.0f;
   
 
     [Header("Manual References")]
@@ -54,7 +56,7 @@ public class BowMan : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        
         if (WallOrGapAhead()) ChangeDirection();
         if (PlayerVisible() && !shooting) StartShooting();
         else if (!PlayerVisible() && shooting) StopShooting();
@@ -86,7 +88,7 @@ public class BowMan : MonoBehaviour
     private bool PlayerVisible()
     {
         bool playerHit = false;
-        RaycastHit2D hit = Physics2D.Raycast(scanPoint.position, transform.right, 100.0f, visibleLayers);
+        RaycastHit2D hit = Physics2D.Raycast(scanPoint.position, transform.right, vision, visibleLayers);
         if (hit.collider != null)
         {
             if ((targetLayers.value & (1 << hit.collider.gameObject.layer)) > 0)

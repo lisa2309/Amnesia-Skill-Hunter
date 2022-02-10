@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771748237710397185}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.14, y: -0.454, z: 0}
+  m_LocalPosition: {x: 0.03, y: -0.472, z: 0}
   m_LocalScale: {x: 0.65116996, y: 0.65116996, z: 3.2558498}
   m_Children: []
   m_Father: {fileID: 2242116425596870193}
@@ -216,7 +216,7 @@ MonoBehaviour:
   obstacles:
     serializedVersion: 2
     m_Bits: 8
-  bulletSpawnInterval: 1
+  bulletSpawnInterval: 2
   targetLayers:
     serializedVersion: 2
     m_Bits: 128
@@ -224,6 +224,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   ArrowPrefab: {fileID: 7168087323918764327, guid: 439f840bf491c444a93b9305a61627ca, type: 3}
+  vision: 50
   scanPoint: {fileID: 771748237710397190}
   shootPoint: {fileID: 2242116427156683834}
 --- !u!1 &2242116426966131770
@@ -280,7 +281,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2242116427156683835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: -0.091, z: 0}
+  m_LocalPosition: {x: 0.064, y: -0.091, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2242116425596870193}

@@ -1996,6 +1996,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 771748236608273035, guid: 95ece0612ae64e348a7a81741334ef0d, type: 3}
+      propertyPath: bulletSpawnInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 771748237710397190, guid: 95ece0612ae64e348a7a81741334ef0d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 771748237710397190, guid: 95ece0612ae64e348a7a81741334ef0d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.472
+      objectReference: {fileID: 0}
     - target: {fileID: 2242116425596870193, guid: 95ece0612ae64e348a7a81741334ef0d, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2043,6 +2055,10 @@ PrefabInstance:
     - target: {fileID: 2242116425596870205, guid: 95ece0612ae64e348a7a81741334ef0d, type: 3}
       propertyPath: m_Name
       value: Bogenschuetze
+      objectReference: {fileID: 0}
+    - target: {fileID: 2242116427156683834, guid: 95ece0612ae64e348a7a81741334ef0d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.064
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95ece0612ae64e348a7a81741334ef0d, type: 3}
