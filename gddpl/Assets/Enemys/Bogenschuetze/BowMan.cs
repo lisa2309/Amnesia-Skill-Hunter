@@ -16,6 +16,8 @@ public class BowMan : MonoBehaviour
     private float turnDistance;
     [SerializeField]
     private LayerMask obstacles;
+    [SerializeField]
+    private Transform scanPoint;
 
     [SerializeField]
     private float attackRange = 4;
@@ -46,12 +48,19 @@ public class BowMan : MonoBehaviour
     void Update()
     {
         Move();
+        if (WallOrGapAhead())
+            {
+            ChangeDirection();
+            }
+
+        /*
         //Flip();
         var playerPosition = IsPlayerInRange();
         if (playerPosition != Vector3.zero)
         {
             ChangeDirection();
         }
+        */
         
     }
 
@@ -84,5 +93,12 @@ public class BowMan : MonoBehaviour
         float horizontalVelocity = transform.right.x * movementSpeed * Time.fixedDeltaTime;
         rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
         animator.SetFloat("horizontalSpeed", Mathf.Abs(horizontalVelocity));
+    }
+
+    private bool WallOrGapAhead()
+    {
+        RaycastHit2D wallHit = Physics2D.Raycast(scanPoint.position, transform.right, turnDistance, obstacles);
+        RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 1.0f, obstacles);
+        return floorHit.collider == null || wallHit.collider != null;
     }
 }
