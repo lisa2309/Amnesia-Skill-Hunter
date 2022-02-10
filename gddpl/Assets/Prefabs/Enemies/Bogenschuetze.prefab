@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771748237710397185}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.165, y: -0.386, z: 0}
+  m_LocalPosition: {x: 0.14, y: -0.454, z: 0}
   m_LocalScale: {x: 0.65116996, y: 0.65116996, z: 3.2558498}
   m_Children: []
   m_Father: {fileID: 2242116425596870193}
@@ -44,12 +44,7 @@ GameObject:
   - component: {fileID: 2242116425596870204}
   - component: {fileID: 2242116425596870192}
   - component: {fileID: 2242116425596870194}
-  - component: {fileID: 771748236608273043}
-  - component: {fileID: 771748236608273034}
   - component: {fileID: 771748236608273035}
-  - component: {fileID: 771748236736192254}
-  - component: {fileID: 771748236736192231}
-  - component: {fileID: 771748236736192230}
   m_Layer: 6
   m_Name: Bogenschuetze
   m_TagString: Untagged
@@ -204,51 +199,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &771748236608273043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2242116425596870205}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42c17b1162f916d49a7d6a872b366c3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerDetector: {fileID: 2242116426966131773}
-  attackPoint: {fileID: 2242116427156683834}
-  attackRange: 10
-  dashSpeed: 400
-  playerLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  startDashTime: 0
-  attackTimeOutStart: 0
-  startAttackPrepTime: 0
---- !u!114 &771748236608273034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2242116425596870205}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c90dd1cd8f3914480a9399aad9a68f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerDetector: {fileID: 2242116426966131773}
-  attackPoint: {fileID: 2242116427156683834}
-  attackRange: 10
-  dashSpeed: 400
-  playerLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  startDashTime: 0
-  attackTimeOutStart: 0
-  startAttackPrepTime: 0
-  shootingSpeed: 4
 --- !u!114 &771748236608273035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,91 +211,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d33b7215f6691904e97128ec53b106c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDetector: {fileID: 2242116426966131773}
-  shootpoint: {fileID: 2242116427156683834}
   movementSpeed: 150
   turnDistance: 1.5
   obstacles:
     serializedVersion: 2
-    m_Bits: 9
+    m_Bits: 8
+  bulletSpawnInterval: 1
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  visibleLayers:
+    serializedVersion: 2
+    m_Bits: 136
+  ArrowPrefab: {fileID: 7168087323918764327, guid: 439f840bf491c444a93b9305a61627ca, type: 3}
   scanPoint: {fileID: 771748237710397190}
-  attackRange: 0
-  damage: 0
-  shootingSpeed: 0
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!114 &771748236736192254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2242116425596870205}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42c17b1162f916d49a7d6a872b366c3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerDetector: {fileID: 2242116426966131773}
-  attackPoint: {fileID: 2242116427156683834}
-  attackRange: 10
-  dashSpeed: 400
-  playerLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  startDashTime: 0
-  attackTimeOutStart: 0
-  startAttackPrepTime: 0
---- !u!114 &771748236736192231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2242116425596870205}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c90dd1cd8f3914480a9399aad9a68f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerDetector: {fileID: 2242116426966131773}
-  attackPoint: {fileID: 2242116427156683834}
-  attackRange: 10
-  dashSpeed: 400
-  playerLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  startDashTime: 0
-  attackTimeOutStart: 0
-  startAttackPrepTime: 0
-  shootingSpeed: 4
---- !u!114 &771748236736192230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2242116425596870205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d33b7215f6691904e97128ec53b106c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerDetector: {fileID: 2242116426966131773}
-  shootpoint: {fileID: 2242116427156683834}
-  movementSpeed: 150
-  turnDistance: 0
-  obstacles:
-    serializedVersion: 2
-    m_Bits: 0
-  scanPoint: {fileID: 0}
-  attackRange: 4
-  damage: 0
-  shootingSpeed: 0
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  shootPoint: {fileID: 2242116427156683834}
 --- !u!1 &2242116426966131770
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2242116427156683834}
   m_Layer: 6
-  m_Name: ShootPint
+  m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

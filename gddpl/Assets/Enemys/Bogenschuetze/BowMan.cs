@@ -4,37 +4,44 @@ using UnityEngine;
 
 public class BowMan : MonoBehaviour
 {
-    [SerializeField]
-    private Transform playerDetector;
-    [SerializeField]
-    private Transform shootpoint;
 
-    [Header("Movement")]
-    [SerializeField]
-    private float movementSpeed;
-    [SerializeField]
-    private float turnDistance;
-    [SerializeField]
-    private LayerMask obstacles;
-    [SerializeField]
-    private Transform scanPoint;
+    //cached references
+    private Rigidbody2D rb;
+    private Animator animator;
+    private EnemyHealth health;
 
-    [SerializeField]
-    private float attackRange = 4;
-    [SerializeField]
-    private int damage;
-    [SerializeField]
-    private float shootingSpeed;
-    [SerializeField]
-    private LayerMask playerLayer;
-
-    private bool shooting;
+    //state
+    private bool shooting = false;
+    private Coroutine currentSpawnBulletInstance;
     private Vector3 shootingDirection;
 
 
-    private Animator animator;
-    private Rigidbody2D rb;
-    private EnemyHealth health;
+    //config
+    [Header("Movement Parameters")]
+    [SerializeField]
+    private float movementSpeed = 100.0f;
+    [SerializeField]
+    private float turnDistance = 1.0f;
+    [SerializeField]
+    private LayerMask obstacles;
+    
+
+    [Header("Shooting Parameters")]
+    [SerializeField]
+    private float bulletSpawnInterval = 0.5f;
+    [SerializeField]
+    private LayerMask targetLayers;
+    [SerializeField]
+    private LayerMask visibleLayers;
+    [SerializeField]
+    private GameObject ArrowPrefab;
+  
+
+    [Header("Manual References")]
+    [SerializeField]
+    private Transform scanPoint;
+    [SerializeField]
+    private Transform shootPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -45,30 +52,13 @@ public class BowMan : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+
+        if (WallOrGapAhead()) ChangeDirection();
+        if (PlayerVisible() && !shooting) StartShooting();
+        else if (!PlayerVisible() && shooting) StopShooting();
         Move();
-        if (WallOrGapAhead())
-            {
-            ChangeDirection();
-            }
-
-        /*
-        //Flip();
-        var playerPosition = IsPlayerInRange();
-        if (playerPosition != Vector3.zero)
-        {
-            ChangeDirection();
-        }
-        */
-        
-    }
-
-
-    private void Flip()
-    {
-        if (rb.velocity.x > 0.0f) transform.eulerAngles = Vector3.zero;
-        else if (rb.velocity.x < 0.0f) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
     }
 
     private void ChangeDirection()
@@ -77,16 +67,7 @@ public class BowMan : MonoBehaviour
         else transform.eulerAngles = Vector3.zero;
     }
 
-    private Vector3 IsPlayerInRange()
-    {
-        var player = Physics2D.OverlapCircleAll(playerDetector.position, attackRange, playerLayer);
-        if(player.Length != 0)
-        {
-            return player[0].transform.position;
-        }
 
-        return Vector3.zero;
-    }
 
     private void Move()
     {
@@ -100,5 +81,39 @@ public class BowMan : MonoBehaviour
         RaycastHit2D wallHit = Physics2D.Raycast(scanPoint.position, transform.right, turnDistance, obstacles);
         RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 1.0f, obstacles);
         return floorHit.collider == null || wallHit.collider != null;
+    }
+
+    private bool PlayerVisible()
+    {
+        bool playerHit = false;
+        RaycastHit2D hit = Physics2D.Raycast(scanPoint.position, transform.right, 100.0f, visibleLayers);
+        if (hit.collider != null)
+        {
+            if ((targetLayers.value & (1 << hit.collider.gameObject.layer)) > 0)
+            {
+                playerHit = true;
+            }
+        }
+        return playerHit;
+    }
+
+    private void StartShooting()
+    {
+        shooting = true;
+
+        currentSpawnBulletInstance = StartCoroutine(SpawnArrow());
+    }
+    private void StopShooting()
+    {
+        shooting = false;
+
+        StopCoroutine(currentSpawnBulletInstance);
+    }
+
+    private IEnumerator SpawnArrow()
+    {
+        Instantiate(ArrowPrefab, shootPoint.position, shootPoint.rotation);
+        yield return new WaitForSeconds(bulletSpawnInterval);
+        if (shooting) StartCoroutine(SpawnArrow());
     }
 }
