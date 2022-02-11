@@ -2,24 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BowMan : MonoBehaviour
+public class Archer : MonoBehaviour
 {
-
     //cached references
     private Rigidbody2D rb;
     private Animator animator;
-    private EnemyHealth health;
 
     //state
     private bool shooting = false;
     private Coroutine currentSpawnBulletInstance;
-    private Vector3 shootingDirection;
-
 
     //config
     [Header("Movement Parameters")]
     [SerializeField]
-    private float movementSpeed = 100.0f;
+    private float moveSpeed = 100.0f;
     [SerializeField]
     private float turnDistance = 1.0f;
     [SerializeField]
@@ -34,10 +30,9 @@ public class BowMan : MonoBehaviour
     [SerializeField]
     private LayerMask visibleLayers;
     [SerializeField]
-    private GameObject ArrowPrefab;
+    private GameObject bulletPrefab;
     [SerializeField]
-    private float vision = 50.0f;
-  
+    private float vision;
 
     [Header("Manual References")]
     [SerializeField]
@@ -45,46 +40,39 @@ public class BowMan : MonoBehaviour
     [SerializeField]
     private Transform shootPoint;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        health = GetComponent<EnemyHealth>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        
         if (WallOrGapAhead()) ChangeDirection();
         if (PlayerVisible() && !shooting) StartShooting();
         else if (!PlayerVisible() && shooting) StopShooting();
         Move();
     }
 
+    private void Move()
+    {
+        float horizontalVelocity = transform.right.x * moveSpeed * Time.fixedDeltaTime;
+        rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
+
+        //animation
+        animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalVelocity));
+    }
     private void ChangeDirection()
     {
         if (transform.eulerAngles == Vector3.zero) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
         else transform.eulerAngles = Vector3.zero;
     }
-
-
-
-    private void Move()
-    {
-        float horizontalVelocity = transform.right.x * movementSpeed * Time.fixedDeltaTime;
-        rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
-        animator.SetFloat("horizontalSpeed", Mathf.Abs(horizontalVelocity));
-    }
-
     private bool WallOrGapAhead()
     {
         RaycastHit2D wallHit = Physics2D.Raycast(scanPoint.position, transform.right, turnDistance, obstacles);
         RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 1.0f, obstacles);
-        return floorHit.collider == null || wallHit.collider != null;
+        return wallHit.collider != null || floorHit.collider == null;
     }
-
     private bool PlayerVisible()
     {
         bool playerHit = false;
@@ -98,12 +86,11 @@ public class BowMan : MonoBehaviour
         }
         return playerHit;
     }
-
     private void StartShooting()
     {
         shooting = true;
 
-        currentSpawnBulletInstance = StartCoroutine(SpawnArrow());
+        currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
     }
     private void StopShooting()
     {
@@ -111,11 +98,10 @@ public class BowMan : MonoBehaviour
 
         StopCoroutine(currentSpawnBulletInstance);
     }
-
-    private IEnumerator SpawnArrow()
+    private IEnumerator SpawnBullet()
     {
-        Instantiate(ArrowPrefab, shootPoint.position, shootPoint.rotation);
+        Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
         yield return new WaitForSeconds(bulletSpawnInterval);
-        if (shooting) StartCoroutine(SpawnArrow());
+        if (shooting) StartCoroutine(SpawnBullet());
     }
 }

@@ -203,9 +203,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6820680511661040643}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4799268bbf59aea458100303fdf1a8ce, type: 2}
+  m_Controller: {fileID: 9100000, guid: efd3147b9e1056a4eac06f0098f3ccb3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -231,13 +231,14 @@ MonoBehaviour:
   obstacles:
     serializedVersion: 2
     m_Bits: 8
-  bulletSpawnInterval: 0.5
+  bulletSpawnInterval: 2
   targetLayers:
     serializedVersion: 2
     m_Bits: 128
   visibleLayers:
     serializedVersion: 2
     m_Bits: 136
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 245722459376835656, guid: 2e3a911703627874082500d5051fa154, type: 3}
+  vision: 20
   scanPoint: {fileID: 6820680510864293087}
-  shootPoint: {fileID: 0}
+  shootPoint: {fileID: 1615969333}
