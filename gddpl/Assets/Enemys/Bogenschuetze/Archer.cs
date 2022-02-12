@@ -20,6 +20,10 @@ public class Archer : MonoBehaviour
     private float turnDistance = 1.0f;
     [SerializeField]
     private LayerMask obstacles;
+    [SerializeField]
+    private float minDistanceToPlayer = 50.0f;
+    [SerializeField]
+    private float runDistance = 20.0f;
     
 
     [Header("Shooting Parameters")]
@@ -49,7 +53,7 @@ public class Archer : MonoBehaviour
     private void FixedUpdate()
     {
         if (WallOrGapAhead()) ChangeDirection();
-        if (PlayerVisible() && !shooting) StartShooting();
+        if (PlayerVisible() && !shooting)StartShooting();
         else if (!PlayerVisible() && shooting) StopShooting();
         Move();
     }
@@ -62,6 +66,7 @@ public class Archer : MonoBehaviour
         //animation
         animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalVelocity));
     }
+
     private void ChangeDirection()
     {
         if (transform.eulerAngles == Vector3.zero) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
@@ -89,12 +94,18 @@ public class Archer : MonoBehaviour
     private void StartShooting()
     {
         shooting = true;
+        animator.SetBool("Shooting", true);
+        moveSpeed = 0.0f; // Ueberschreibt glaube ich die Moeglichkeit die Geschwindigkeit in Unity ein zu stellen
 
         currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
     }
     private void StopShooting()
     {
         shooting = false;
+        animator.SetBool("Shooting", false);
+
+        moveSpeed = 100.0f; // Ueberschreibt glaube ich die Moeglichkeit die Geschwindigkeit in Unity ein zu stellen
+
 
         StopCoroutine(currentSpawnBulletInstance);
     }
