@@ -11,6 +11,9 @@ public class Archer : MonoBehaviour
     //state
     private bool shooting = false;
     private Coroutine currentSpawnBulletInstance;
+    private float guiMoveSpeed = 0.0f;
+    //private bool isAlive;
+
 
     //config
     [Header("Movement Parameters")]
@@ -21,10 +24,10 @@ public class Archer : MonoBehaviour
     [SerializeField]
     private LayerMask obstacles;
     [SerializeField]
-    private float minDistanceToPlayer = 50.0f;
+    private float minDistanceToPlayer = 10.0f;
     [SerializeField]
     private float runDistance = 20.0f;
-    
+
 
     [Header("Shooting Parameters")]
     [SerializeField]
@@ -44,16 +47,21 @@ public class Archer : MonoBehaviour
     [SerializeField]
     private Transform shootPoint;
 
+
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        guiMoveSpeed = moveSpeed;
     }
 
     private void FixedUpdate()
     {
+        RunAway();
         if (WallOrGapAhead()) ChangeDirection();
-        if (PlayerVisible() && !shooting)StartShooting();
+        if (PlayerVisible() && !shooting) StartShooting();
         else if (!PlayerVisible() && shooting) StopShooting();
         Move();
     }
@@ -93,9 +101,10 @@ public class Archer : MonoBehaviour
     }
     private void StartShooting()
     {
+        
         shooting = true;
         animator.SetBool("Shooting", true);
-        moveSpeed = 0.0f; // Ueberschreibt glaube ich die Moeglichkeit die Geschwindigkeit in Unity ein zu stellen
+        moveSpeed = 0.0f; // Ueberschreibt die Moeglichkeit die Geschwindigkeit in Unity ein zu stellen
 
         currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
     }
@@ -104,7 +113,7 @@ public class Archer : MonoBehaviour
         shooting = false;
         animator.SetBool("Shooting", false);
 
-        moveSpeed = 100.0f; // Ueberschreibt glaube ich die Moeglichkeit die Geschwindigkeit in Unity ein zu stellen
+        moveSpeed = guiMoveSpeed; // Ueberschreibt die Moeglichkeit die Geschwindigkeit in Unity ein zu stellen
 
 
         StopCoroutine(currentSpawnBulletInstance);
@@ -115,4 +124,35 @@ public class Archer : MonoBehaviour
         yield return new WaitForSeconds(bulletSpawnInterval);
         if (shooting) StartCoroutine(SpawnBullet());
     }
+
+    /*
+    private void MoveFor()
+    {
+        float runDist = 0;
+        while (runDist < runDistance)
+        {
+            Move();
+            runDist = 0;
+        }
+        ChangeDirection();
+        runDist = 0;
+    }
+    */
+
+    
+    private void RunAway()
+    {
+        RaycastHit2D distanctToPlayer = Physics2D.Raycast(scanPoint.position, transform.right, minDistanceToPlayer, targetLayers);
+
+        // Checkt ob der Player zu nah ist und ändert die Richtung
+        if(distanctToPlayer.collider != null)
+        {
+            ChangeDirection();
+            
+        }
+    }
+    
+
+
+   
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Arrow : MonoBehaviour
 {
@@ -47,7 +48,11 @@ public class Arrow : MonoBehaviour
             {
                 if (collision.gameObject.GetComponent<PlayerHealth>().LooseHealth(damage))
                 {
-                    FindObjectOfType<LevelLoader>().RestartLevel();
+                    //FindObjectOfType<LevelLoader>().RestartLevel();
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+                    // Der LevelLoader will nicht wie er soll
+                    //SceneManger... Geht
                 }
                 
             }

@@ -231,6 +231,8 @@ MonoBehaviour:
   obstacles:
     serializedVersion: 2
     m_Bits: 8
+  minDistanceToPlayer: 0.1
+  runDistance: 20
   bulletSpawnInterval: 2
   targetLayers:
     serializedVersion: 2
@@ -239,6 +241,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   bulletPrefab: {fileID: 245722459376835656, guid: 2e3a911703627874082500d5051fa154, type: 3}
-  vision: 20
+  vision: 100
   scanPoint: {fileID: 6820680510864293087}
   shootPoint: {fileID: 1615969333}
