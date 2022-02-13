@@ -13,7 +13,7 @@ public class Archer : MonoBehaviour
     private Coroutine currentSpawnBulletInstance;
     private float guiMoveSpeed = 0.0f;
     //private bool isAlive;
-
+    
 
     //config
     [Header("Movement Parameters")]
@@ -60,6 +60,7 @@ public class Archer : MonoBehaviour
     private void FixedUpdate()
     {
         RunAway();
+        TurnBack();
         if (WallOrGapAhead()) ChangeDirection();
         if (PlayerVisible() && !shooting) StartShooting();
         else if (!PlayerVisible() && shooting) StopShooting();
@@ -140,15 +141,23 @@ public class Archer : MonoBehaviour
     */
 
     
+    private void TurnBack()
+    {
+        RaycastHit2D distanceToPlayer = Physics2D.Raycast(scanPoint.position, -transform.right, vision/2, targetLayers);
+        if(distanceToPlayer.collider != null)
+        { 
+            ChangeDirection();
+        }
+    }
+
     private void RunAway()
     {
-        RaycastHit2D distanctToPlayer = Physics2D.Raycast(scanPoint.position, transform.right, minDistanceToPlayer, targetLayers);
+        RaycastHit2D distanceToPlayer = Physics2D.Raycast(scanPoint.position, transform.right, minDistanceToPlayer, targetLayers);
 
         // Checkt ob der Player zu nah ist und ändert die Richtung
-        if(distanctToPlayer.collider != null)
+        if(distanceToPlayer.collider != null)
         {
             ChangeDirection();
-            
         }
     }
     
