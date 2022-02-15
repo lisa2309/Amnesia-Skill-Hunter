@@ -49,6 +49,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""2459092c-c465-4869-ab84-08daca60cd4d"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -117,6 +125,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0da3611e-7cc8-44ab-ab89-950e662bf35a"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -129,6 +148,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Gameplay_Melee = m_Gameplay.FindAction("Melee", throwIfNotFound: true);
         m_Gameplay_Power = m_Gameplay.FindAction("Power", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_Gameplay_MousePosition = m_Gameplay.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,6 +202,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Melee;
     private readonly InputAction m_Gameplay_Power;
     private readonly InputAction m_Gameplay_Jump;
+    private readonly InputAction m_Gameplay_MousePosition;
     public struct GameplayActions
     {
         private @Controls m_Wrapper;
@@ -190,6 +211,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Melee => m_Wrapper.m_Gameplay_Melee;
         public InputAction @Power => m_Wrapper.m_Gameplay_Power;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+        public InputAction @MousePosition => m_Wrapper.m_Gameplay_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -211,6 +233,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                @MousePosition.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -227,6 +252,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -237,5 +265,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnMelee(InputAction.CallbackContext context);
         void OnPower(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }

@@ -32,19 +32,25 @@ public class PlayerMeele : MonoBehaviour
         {
             Attack();
         }
-       
-        //Debug.Log(attacking);
     }
 
     private void Attack()
     {
-        Debug.Log("ATTACK!");
         animator.SetTrigger("Attack");
         var hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
         foreach(var enemy in hitEnemies)
         {
-            //Damage enemies
+            Debug.Log("ATTACK!");
+            enemy.GetComponent<EnemyHealth>().LooseHealth(1);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) 
+            return;
+
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }
