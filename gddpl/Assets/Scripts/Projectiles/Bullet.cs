@@ -48,7 +48,7 @@ public class Bullet : MonoBehaviour
         }
         else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
-            Enemy hitEnemy = collision.gameObject.GetComponent<Enemy>();
+            EnemyController hitEnemy = collision.gameObject.GetComponent<EnemyController>();
             if (hitEnemy != null)
             {
                 Destroy(hitEnemy.gameObject);
