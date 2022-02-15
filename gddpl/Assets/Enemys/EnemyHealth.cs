@@ -10,6 +10,16 @@ public class EnemyHealth : MonoBehaviour
 
     private Animator animator;
 
+    private bool dead;
+
+
+    private void FixedUpdate()
+    {
+        EnemyIsDead(); 
+
+
+    }
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -19,6 +29,17 @@ public class EnemyHealth : MonoBehaviour
     {
         hitpoints -= damage;
         animator.SetTrigger("Hit");
+    }
+
+
+    private void EnemyIsDead()
+    {
+        if(hitpoints <= 0)
+        {
+            animator.SetBool("Dead", true);
+            Debug.Log("Enemy is dead");
+        }
+       
     }
 
 }
