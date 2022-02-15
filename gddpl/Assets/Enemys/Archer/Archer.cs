@@ -60,7 +60,7 @@ public class Archer : MonoBehaviour
     private void FixedUpdate()
     {
         RunAway();
-        TurnBack();
+        //TurnBack();
         if (WallOrGapAhead()) ChangeDirection();
         if (PlayerVisible() && !shooting) StartShooting();
         else if (!PlayerVisible() && shooting) StopShooting();
