@@ -13,6 +13,7 @@ public class Archer : MonoBehaviour
     private Coroutine currentSpawnBulletInstance;
     private float guiMoveSpeed = 0.0f;
     //private bool isAlive;
+    private int shootCounter = 0;
     
 
     //config
@@ -62,6 +63,12 @@ public class Archer : MonoBehaviour
         RunAway();
         //TurnBack();
         if (WallOrGapAhead()) ChangeDirection();
+        if (shootCounter >= 2)
+        {
+            ChangeDirection();
+            shootCounter = 0;
+            //GetNewShootingPosition();
+        }
         if (PlayerVisible() && !shooting) StartShooting();
         else if (!PlayerVisible() && shooting) StopShooting();
         Move();
@@ -123,7 +130,12 @@ public class Archer : MonoBehaviour
     {
         Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
         yield return new WaitForSeconds(bulletSpawnInterval);
-        if (shooting) StartCoroutine(SpawnBullet());
+        if (shooting)
+        {
+            StartCoroutine(SpawnBullet());
+            shootCounter++;
+            Debug.Log("shootCounter = " + shootCounter);
+        }
     }
 
     /*
@@ -141,12 +153,19 @@ public class Archer : MonoBehaviour
     */
 
     
-    private void TurnBack()
+    private void GetNewShootingPosition()
     {
-        RaycastHit2D distanceToPlayer = Physics2D.Raycast(scanPoint.position, -transform.right, vision/2, targetLayers);
-        if(distanceToPlayer.collider != null)
-        { 
-            ChangeDirection();
+        /*
+         * Nach dem der Archer 3 Schuesse abgegeben hat soll er eine bestimmte Anzahl von Schritten vom 
+         * Player weg laufen und sich dann wieder umderehen um erneut zu schiessen.
+         */
+        RaycastHit2D distanceToPlayer = Physics2D.Raycast(scanPoint.position, -transform.right, vision/4, targetLayers);
+        if (shootCounter == 0)
+        {
+            if (distanceToPlayer.collider == null)
+            {
+                ChangeDirection();
+            }
         }
     }
 
@@ -160,7 +179,8 @@ public class Archer : MonoBehaviour
             ChangeDirection();
         }
     }
-    
+
+  
 
 
    
