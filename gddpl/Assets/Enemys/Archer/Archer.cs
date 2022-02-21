@@ -14,6 +14,7 @@ public class Archer : MonoBehaviour
     private float guiMoveSpeed = 0.0f;
     //private bool isAlive;
     private int shootCounter = 0;
+    private bool runningAway = false;
     
 
     //config
@@ -27,7 +28,7 @@ public class Archer : MonoBehaviour
     [SerializeField]
     private float minDistanceToPlayer = 10.0f;
     [SerializeField]
-    private float runDistance = 20.0f;
+    private float runDistance = 5.0f;
 
 
     [Header("Shooting Parameters")]
@@ -47,6 +48,8 @@ public class Archer : MonoBehaviour
     private Transform scanPoint;
     [SerializeField]
     private Transform shootPoint;
+    [SerializeField]
+    private Transform player;
 
 
 
@@ -63,6 +66,16 @@ public class Archer : MonoBehaviour
         RunAway();
         //TurnBack();
         if (WallOrGapAhead()) ChangeDirection();
+        if(runningAway)
+        {
+            if (Vector2.Distance(transform.position, player.position) >= runDistance)
+            {
+                Debug.Log("TurnBack");
+                ChangeDirection();
+                runningAway = false;
+            }
+       
+        }
         if (shootCounter >= 2)
         {
             ChangeDirection();
@@ -171,14 +184,17 @@ public class Archer : MonoBehaviour
 
     private void RunAway()
     {
-        RaycastHit2D distanceToPlayer = Physics2D.Raycast(scanPoint.position, transform.right, minDistanceToPlayer, targetLayers);
-
-        // Checkt ob der Player zu nah ist und ändert die Richtung
-        if(distanceToPlayer.collider != null)
+        if( Vector2.Distance(transform.position, player.position) < minDistanceToPlayer && PlayerVisible())
         {
+            runningAway = true;
+            Debug.Log("RunAway");
             ChangeDirection();
         }
+        
+
     }
+
+    
 
   
 
