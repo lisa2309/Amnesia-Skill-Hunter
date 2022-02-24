@@ -92,7 +92,7 @@ public class FireMage : MonoBehaviour
                     transform.position = Vector2.MoveTowards(transform.position, player.position, -speed * Time.deltaTime);
                 }
             } else if (WallOrGapAhead() == true) {
-                Debug.Log("Wall or Gap");
+               // Debug.Log("Wall or Gap");
                 transform.position = this.transform.position;
             }
         }
@@ -110,7 +110,7 @@ public class FireMage : MonoBehaviour
         RaycastHit2D floorHitFront = Physics2D.Raycast(scanPointFront.position, -transform.up, scanPointFront.localPosition.y + 0.5f, obstacles);
         RaycastHit2D wallHitBack = Physics2D.Raycast(scanPointBack.position, transform.right, turnDistance, obstacles); 
         RaycastHit2D floorHitBack = Physics2D.Raycast(scanPointBack.position, -transform.up, scanPointBack.localPosition.y + 0.5f, obstacles);
-        return wallHitFront.collider != null /*|| floorHitFront.collider == null */|| wallHitBack.collider != null /*|| floorHitBack.collider == null*/;
+        return wallHitFront.collider != null || floorHitFront.collider == null || wallHitBack.collider != null || floorHitBack.collider == null;
     }
 
     private bool PlayerVisible()

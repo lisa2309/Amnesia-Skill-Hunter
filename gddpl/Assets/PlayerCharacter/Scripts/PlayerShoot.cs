@@ -14,7 +14,7 @@ public class PlayerShoot : MonoBehaviour
     //state
     private bool shooting;
     private Coroutine currentSpawnBulletInstance;
-    private Ability currentAbility = Ability.Dash;
+    public Ability currentAbility = Ability.Dash;
 
     //config
     [Header("Shooting")]
@@ -73,6 +73,7 @@ public class PlayerShoot : MonoBehaviour
     {
         if(GameObject.Find("FireBall") == null && GameObject.Find("FireBall(Clone)") == null)
         {
+            Debug.Log("Shoot");
             shooting = true;
             currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
             //playerMovement.SetRunSpeedModifier(shootingRunModiefier);
