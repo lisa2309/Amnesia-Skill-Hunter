@@ -173,7 +173,8 @@ MonoBehaviour:
     m_Bits: 8
   targetLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 128
+  damageRange: 2
 --- !u!95 &5282032319795287428
 Animator:
   serializedVersion: 3
