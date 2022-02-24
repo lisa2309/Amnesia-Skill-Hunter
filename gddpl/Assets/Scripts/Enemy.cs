@@ -20,7 +20,6 @@ public class Enemy : MonoBehaviour
     private float turnDistance = 1.0f;
     [SerializeField]
     private LayerMask obstacles;
-    
 
     [Header("Shooting Parameters")]
     [SerializeField]
@@ -54,11 +53,16 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
-        float horizontalVelocity = transform.right.x * moveSpeed * Time.fixedDeltaTime;
-        rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
+        Debug.Log("Move");
+        //if(isMoveAllowed())
+        //{
+            float horizontalVelocity = transform.right.x * moveSpeed * Time.fixedDeltaTime;
+            rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
+            //animation
+            animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
+        //}
 
-        //animation
-        animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalVelocity));
+        
     }
     private void ChangeDirection()
     {
@@ -68,8 +72,8 @@ public class Enemy : MonoBehaviour
     private bool WallOrGapAhead()
     {
         RaycastHit2D wallHit = Physics2D.Raycast(scanPoint.position, transform.right, turnDistance, obstacles);
-        RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 0.5f, obstacles);
-        return wallHit.collider != null || floorHit.collider == null;
+        //RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 0.5f, obstacles);
+        return wallHit.collider != null; //|| floorHit.collider == null;
     }
     private bool PlayerVisible()
     {
@@ -77,6 +81,7 @@ public class Enemy : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(scanPoint.position, transform.right, 100.0f, visibleLayers);
         if (hit.collider != null)
         {
+            playerHit = (targetLayers.value & (1 << hit.collider.gameObject.layer)) > 0;
             if ((targetLayers.value & (1 << hit.collider.gameObject.layer)) > 0)
             {
                 playerHit = true;
@@ -86,20 +91,31 @@ public class Enemy : MonoBehaviour
     }
     private void StartShooting()
     {
-        shooting = true;
+            shooting = true;
 
-        currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
+            //animation
+            animator.SetBool("Shoot", true);
+
+            currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
     }
     private void StopShooting()
     {
-        shooting = false;
+            shooting = false;
 
-        StopCoroutine(currentSpawnBulletInstance);
+            animator.SetBool("Shoot", false);
+
+            StopCoroutine(currentSpawnBulletInstance);    
+    }
+
+    private bool isMoveAllowed(){
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ShootFire")) return false;
+        return true;
     }
     private IEnumerator SpawnBullet()
     {
         Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
         yield return new WaitForSeconds(bulletSpawnInterval);
         if (shooting) StartCoroutine(SpawnBullet());
-    }
+    } 
+
 }
