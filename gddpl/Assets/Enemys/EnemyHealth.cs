@@ -52,7 +52,8 @@ public class EnemyHealth : MonoBehaviour
 
     private Ability CurrentEnemy()
     {
-        if(transform.parent.name == "FireMage")
+        Debug.Log(this.gameObject.name);
+        if(this.gameObject.name == "FireMage")
         {
             Debug.Log("FireBall!!!");
             return Ability.Fireball;
