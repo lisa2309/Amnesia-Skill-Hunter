@@ -57,6 +57,7 @@ public class PlayerShoot : MonoBehaviour
                 break;
             case Ability.Bow:
                 ShootBow();
+                Debug.Log("BOOOOOOOOOOOW");
                 break;
             case Ability.Dash:
                 Dash();

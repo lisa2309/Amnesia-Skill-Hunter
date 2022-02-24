@@ -58,7 +58,7 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log("FireBall!!!");
             return Ability.Fireball;
         } 
-        else if(transform.parent.name == "Archer") 
+        else if(this.gameObject.name == "Archer") 
         {
             return Ability.Bow;
         } else {
