@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawnInterval: 0.5
   shootingRunModifier: 0.66
+  camera: {fileID: 0}
   bulletPrefab: {fileID: 2010076067023003554, guid: 0064dd499587d764dbff802e386f8097, type: 3}
   shootPoint: {fileID: 1594065660}
 --- !u!114 &238823011
@@ -401,6 +402,13 @@ MonoBehaviour:
   timeToRememberEarlyJump: 0.2
   timeToRemberGrounded: 0.125
   relativeMinJumpDuration: 0.33
+  characterCenter: {fileID: 0}
+  dashSpeed: 400
+  startDashTime: 0
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  dashing: 0
   feetCollider: {fileID: 949330935}
 --- !u!1 &949330934
 GameObject:

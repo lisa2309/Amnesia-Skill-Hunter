@@ -11,6 +11,13 @@ public class EnemyHealth : MonoBehaviour
     private Animator animator;
 
     private bool dead;
+    [SerializeField]
+    private GameObject player;
+    private PlayerShoot playershoot;
+
+    private void Start() {
+        playershoot = player.GetComponent<PlayerShoot>();
+    }
 
 
     private void FixedUpdate()
@@ -38,8 +45,25 @@ public class EnemyHealth : MonoBehaviour
         {
             animator.SetBool("Dead", true);
             Debug.Log("Enemy is dead");
+            playershoot.currentAbility = CurrentEnemy();
         }
        
+    }
+
+    private Ability CurrentEnemy()
+    {
+        Debug.Log(this.gameObject.name);
+        if(this.gameObject.name == "FireMage")
+        {
+            Debug.Log("FireBall!!!");
+            return Ability.Fireball;
+        } 
+        else if(transform.parent.name == "Archer") 
+        {
+            return Ability.Bow;
+        } else {
+            return Ability.None;
+        }
     }
 
 }
