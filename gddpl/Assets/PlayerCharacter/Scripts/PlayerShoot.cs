@@ -16,6 +16,9 @@ public class PlayerShoot : MonoBehaviour
     private Coroutine currentSpawnBulletInstance;
     public Ability currentAbility = Ability.Dash;
 
+    private float cooldown = 2.0f;
+    private float lastAttacked = -9999.0f;
+
     //config
     [Header("Shooting")]
     [SerializeField]
@@ -31,6 +34,8 @@ public class PlayerShoot : MonoBehaviour
     [Header("Manual References")]
     [SerializeField]
     private GameObject bulletPrefab;
+    [SerializeField]
+    private GameObject arrowPrefab;
     [SerializeField]
     private Transform shootPoint;
 
@@ -48,12 +53,18 @@ public class PlayerShoot : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
+
     private void StartShooting()
     {
         switch (currentAbility)
         {
             case Ability.Fireball:
                 ShootFireball();
+                Debug.Log("FireBall");
                 break;
             case Ability.Bow:
                 ShootBow();
@@ -89,7 +100,21 @@ public class PlayerShoot : MonoBehaviour
 
     private void ShootBow()
     {
+        if (Time.time > lastAttacked + cooldown)
+        {
+            Debug.Log("Shoot");
+            shooting = true;
+            currentSpawnBulletInstance = StartCoroutine(SpawnArrow());
+            //playerMovement.SetRunSpeedModifier(shootingRunModiefier);
 
+            //animation
+            animator.SetBool("Croushing", true);
+
+            movement.SetRunSpeedModifier(shootingRunModifier);
+
+            lastAttacked = Time.time;
+        }
+        
     }
 
     private void Dash()
@@ -140,7 +165,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void StopShootBow()
     {
-
+        animator.SetBool("Croushing", false);
     }
 
     private void StopDash()
@@ -158,6 +183,13 @@ public class PlayerShoot : MonoBehaviour
         Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
         yield return new WaitForSeconds(bulletSpawnInterval);
         if (shooting) StartCoroutine(SpawnBullet());
+    }
+
+    private IEnumerator SpawnArrow()
+    {
+        Instantiate(arrowPrefab, shootPoint.position, shootPoint.rotation);
+        yield return new WaitForSeconds(bulletSpawnInterval);
+        if (shooting) StartCoroutine(SpawnArrow());
     }
 
     private void SetAbility(Ability ability)
