@@ -285,11 +285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6589256082710236295, guid: 594cac16b81d5f047b5991c043752b98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -977.91
+      value: -351.91
       objectReference: {fileID: 0}
     - target: {fileID: 6589256082710236295, guid: 594cac16b81d5f047b5991c043752b98, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -534.09204
+      value: -182.09201
       objectReference: {fileID: 0}
     - target: {fileID: 6589256082861872080, guid: 594cac16b81d5f047b5991c043752b98, type: 3}
       propertyPath: player
@@ -315,6 +315,14 @@ PrefabInstance:
     - target: {fileID: 5217649756335140665, guid: b1e005067151b144dab4503f90c8c091, type: 3}
       propertyPath: maxHealth
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5217649756335140667, guid: b1e005067151b144dab4503f90c8c091, type: 3}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 245722459376835656, guid: 2e3a911703627874082500d5051fa154, type: 3}
+    - target: {fileID: 5217649756335140667, guid: b1e005067151b144dab4503f90c8c091, type: 3}
+      propertyPath: bulletSpawnInterval
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5217649756902209687, guid: b1e005067151b144dab4503f90c8c091, type: 3}
       propertyPath: m_RootOrder
