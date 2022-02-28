@@ -48,15 +48,18 @@ public class Bullet : MonoBehaviour
         }
         else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
-            EnemyController hitEnemy = collision.gameObject.GetComponent<EnemyController>();
-            if (hitEnemy != null)
+            //EnemyController hitEnemy = collision.gameObject.GetComponent<EnemyController>();
+            EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
             {
-                Destroy(hitEnemy.gameObject);
+                enemyHealth.LooseHealth(damage);
+                //Destroy(enemyHealth.gameObject);
                 //FindObjectOfType<LevelLoader>().DecrementEnemyCount();
             }
             else
             {
-                if (collision.gameObject.GetComponent<PlayerHealth>().LooseHealth(damage))
+                PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+                if (playerHealth.LooseHealth(damage) == true)
                 {
                     SceneManager.LoadScene("Lisa's Scene");
                     //FindObjectOfType<LevelLoader>().RestartLevel();

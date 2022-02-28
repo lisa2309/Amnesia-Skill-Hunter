@@ -64,13 +64,13 @@ public class FireMage : MonoBehaviour
             {
                 if(Vector2.Distance(transform.position, player.position) > stoppingDistance)
                 {
-                    Debug.Log("Move");
+                    //Debug.Log("Move");
                     transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
                 }
                 else if(Vector2.Distance(transform.position, player.position) < stoppingDistance 
                 && Vector2.Distance(transform.position, player.position) > retreaDistance)
                 {
-                    Debug.Log("Test");
+                    //Debug.Log("Test");
                     transform.position = this.transform.position;
 
                     if(timeBtwShots <= 0){
@@ -88,7 +88,7 @@ public class FireMage : MonoBehaviour
                 }
                 else if (Vector2.Distance(transform.position, player.position) < retreaDistance)
                 {
-                    Debug.Log("Retreat");
+                    //Debug.Log("Retreat");
                     transform.position = Vector2.MoveTowards(transform.position, player.position, -speed * Time.deltaTime);
                 }
             } else if (WallOrGapAhead() == true) {
@@ -101,6 +101,7 @@ public class FireMage : MonoBehaviour
     private bool isAllowed(){
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("ShootFire")) return false;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death")) return false;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return false;
         return true;
     }
 
