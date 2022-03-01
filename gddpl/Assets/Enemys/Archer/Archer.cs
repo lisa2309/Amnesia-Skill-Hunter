@@ -34,6 +34,11 @@ public class Archer : MonoBehaviour
     [Header("Shooting Parameters")]
     [SerializeField]
     private float bulletSpawnInterval = 0.5f;
+
+    [SerializeField]
+    private float cooldown = 2.0f;
+    private float lastAttacked = -9999.0f;
+
     [SerializeField]
     private LayerMask targetLayers;
     [SerializeField]
@@ -76,12 +81,6 @@ public class Archer : MonoBehaviour
             }
        
         }
-        if (shootCounter >= 2)
-        {
-            ChangeDirection();
-            shootCounter = 0;
-            //GetNewShootingPosition();
-        }
         if (PlayerVisible() && !shooting) StartShooting();
         else if (!PlayerVisible() && shooting) StopShooting();
         Move();
@@ -122,12 +121,16 @@ public class Archer : MonoBehaviour
     }
     private void StartShooting()
     {
-        
-        shooting = true;
-        animator.SetBool("Shooting", true);
-        moveSpeed = 0.0f; // Ueberschreibt die Moeglichkeit die Geschwindigkeit in Unity ein zu stellen
+        if (Time.time > lastAttacked + cooldown)
+        {
+            shooting = true;
+            animator.SetBool("Shooting", true);
+            moveSpeed = 0.0f; // Ueberschreibt die Moeglichkeit die Geschwindigkeit in Unity ein zu stellen
+            currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
+            lastAttacked = Time.time;
+        }
 
-        currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
+        
     }
     private void StopShooting()
     {
@@ -151,36 +154,6 @@ public class Archer : MonoBehaviour
         }
     }
 
-    /*
-    private void MoveFor()
-    {
-        float runDist = 0;
-        while (runDist < runDistance)
-        {
-            Move();
-            runDist = 0;
-        }
-        ChangeDirection();
-        runDist = 0;
-    }
-    */
-
-    
-    private void GetNewShootingPosition()
-    {
-        /*
-         * Nach dem der Archer 3 Schuesse abgegeben hat soll er eine bestimmte Anzahl von Schritten vom 
-         * Player weg laufen und sich dann wieder umderehen um erneut zu schiessen.
-         */
-        RaycastHit2D distanceToPlayer = Physics2D.Raycast(scanPoint.position, -transform.right, vision/4, targetLayers);
-        if (shootCounter == 0)
-        {
-            if (distanceToPlayer.collider == null)
-            {
-                ChangeDirection();
-            }
-        }
-    }
 
     private void RunAway()
     {
