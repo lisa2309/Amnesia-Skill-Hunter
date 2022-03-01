@@ -6,7 +6,9 @@ public class PlayerHealth : MonoBehaviour
 {
     //state
     private int currentHealth;
-    public ProgressBar pb;
+    
+    [SerializeField]
+    private ProgressBar progressBar;
 
     //config
     [SerializeField]
@@ -25,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     private void Update(){
-        pb.BarValue = currentHealth;
+        progressBar.BarValue = currentHealth;
     }
 
     public float GetCurrentHealth()

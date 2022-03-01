@@ -53,12 +53,12 @@ public class EnemyHealth : MonoBehaviour
     private Ability CurrentEnemy()
     {
         Debug.Log(this.gameObject.name);
-        if(this.gameObject.name == "FireMage")
+        if(this.gameObject.tag == "FireMage")
         {
             Debug.Log("FireBall!!!");
             return Ability.Fireball;
         } 
-        else if(this.gameObject.name == "Archer") 
+        else if(this.gameObject.tag == "Archer") 
         {
             return Ability.Bow;
         } else {
