@@ -201,10 +201,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54e69ec01ce898443ab33ccf1ce8ca7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpawnInterval: 0.5
+  currentAbility: 2
+  bulletSpawnInterval: 2
   shootingRunModifier: 0.66
   camera: {fileID: 0}
   bulletPrefab: {fileID: 2010076067023003554, guid: 0064dd499587d764dbff802e386f8097, type: 3}
+  arrowPrefab: {fileID: 245722459376835656, guid: 2e3a911703627874082500d5051fa154, type: 3}
   shootPoint: {fileID: 5217649756794826097}
 --- !u!114 &5217649756335140666
 MonoBehaviour:
@@ -235,8 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a91de6650b0e94a9d7052c8acc5aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pb: {fileID: 0}
-  maxHealth: 2
+  progressBar: {fileID: 0}
+  maxHealth: 100
 --- !u!1 &5217649756794826096
 GameObject:
   m_ObjectHideFlags: 0
