@@ -37,6 +37,8 @@ public class Archer : MonoBehaviour
 
     [SerializeField]
     private float cooldown = 2.0f;
+    [SerializeField]
+    private float cooldownFac = 1.5f;
     private float lastAttacked = -9999.0f;
 
     [SerializeField]
@@ -81,18 +83,33 @@ public class Archer : MonoBehaviour
             }
        
         }
-        if (PlayerVisible() && !shooting) StartShooting();
-        else if (!PlayerVisible() && shooting) StopShooting();
+        if (PlayerVisible() && !shooting)
+        {
+            if (Time.time > lastAttacked + cooldown)
+            {
+                moveSpeed = 0.0f;
+                animator.SetTrigger("ShootTrig");
+                Debug.Log("ShootTrig");
+
+                Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+                lastAttacked = Time.time;
+            }
+        }
+        else if(!PlayerVisible() && Time.time > lastAttacked + (cooldown / cooldownFac)) // Falls es stoert das der Archer beim Raumgewinn wartet nur cooldown!!!
+        {
+            moveSpeed = guiMoveSpeed;
+        }
+        //else if (!PlayerVisible() && shooting) StopShooting();
         Move();
     }
 
     private void Move()
     {
-        float horizontalVelocity = transform.right.x * moveSpeed * Time.fixedDeltaTime;
-        rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
+            float horizontalVelocity = transform.right.x * moveSpeed * Time.fixedDeltaTime;
+            rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
 
-        //animation
-        animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalVelocity));
+            //animation
+            animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalVelocity));
     }
 
     private void ChangeDirection()
@@ -103,7 +120,7 @@ public class Archer : MonoBehaviour
     private bool WallOrGapAhead()
     {
         RaycastHit2D wallHit = Physics2D.Raycast(scanPoint.position, transform.right, turnDistance, obstacles);
-        RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 1.0f, obstacles);
+        RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 5.0f, obstacles);
         return wallHit.collider != null || floorHit.collider == null;
     }
     private bool PlayerVisible()
@@ -130,7 +147,6 @@ public class Archer : MonoBehaviour
             lastAttacked = Time.time;
         }
 
-        
     }
     private void StopShooting()
     {
@@ -149,7 +165,6 @@ public class Archer : MonoBehaviour
         if (shooting)
         {
             StartCoroutine(SpawnBullet());
-            shootCounter++;
             Debug.Log("shootCounter = " + shootCounter);
         }
     }
