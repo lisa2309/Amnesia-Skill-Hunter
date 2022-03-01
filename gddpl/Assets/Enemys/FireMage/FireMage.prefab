@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1724516820}
   m_Layer: 6
   m_Name: FireMage
-  m_TagString: Untagged
+  m_TagString: FireMage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
