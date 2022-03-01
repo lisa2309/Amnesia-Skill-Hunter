@@ -206,7 +206,7 @@ MonoBehaviour:
   shootingRunModifier: 0.66
   camera: {fileID: 0}
   bulletPrefab: {fileID: 2010076067023003554, guid: 0064dd499587d764dbff802e386f8097, type: 3}
-  arrowPrefab: {fileID: 245722459376835656, guid: 2e3a911703627874082500d5051fa154, type: 3}
+  arrowPrefab: {fileID: 245722459376835656, guid: ea417d2057d455549a2bb8221d438d48, type: 3}
   shootPoint: {fileID: 5217649756794826097}
 --- !u!114 &5217649756335140666
 MonoBehaviour:
