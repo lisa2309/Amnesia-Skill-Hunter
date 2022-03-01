@@ -31,18 +31,20 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
+        if ((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
             Destroy(gameObject);
         }
         else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
             //damage target
-            Enemy hitEnemy = collision.gameObject.GetComponent<Enemy>();
-            if (hitEnemy != null)
+            //EnemyController hitEnemy = collision.gameObject.GetComponent<EnemyController>();
+            EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
             {
-                Destroy(hitEnemy.gameObject);
-                FindObjectOfType<LevelLoader>().DecrementEnemyCount();
+                enemyHealth.LooseHealth(damage);
+                //Destroy(enemyHealth.gameObject);
+                //FindObjectOfType<LevelLoader>().DecrementEnemyCount();
             }
             else
             {
@@ -54,7 +56,7 @@ public class Arrow : MonoBehaviour
                     // Der LevelLoader will nicht wie er soll
                     //SceneManger... Geht
                 }
-                
+
             }
             Destroy(gameObject);
             Debug.Log("target hit");
