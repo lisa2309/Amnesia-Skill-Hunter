@@ -25,15 +25,16 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.velocity = velocity * transform.right;
         animator = GetComponent<Animator>();
     }
-    private void FixedUpdate()
+   /* private void FixedUpdate()
     {
         if(!isTriggered){
             rb.MovePosition(rb.position + new Vector2(transform.right.x, 0.0f) * velocity * Time.fixedDeltaTime);
         }
         
-    }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,6 +45,8 @@ public class Bullet : MonoBehaviour
 
         if ((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
+            //transform.position = this.transform.position;
+            rb.velocity = Vector2.zero;
             animator.SetTrigger("Expliosen");
         }
         else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)
@@ -65,6 +68,8 @@ public class Bullet : MonoBehaviour
                     //FindObjectOfType<LevelLoader>().RestartLevel();
                 }
             }
+            //transform.position = this.transform.position;
+            rb.velocity = Vector2.zero;
             animator.SetTrigger("Expliosen");
         }
     }

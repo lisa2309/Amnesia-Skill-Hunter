@@ -25,8 +25,8 @@ public class PlayerShoot : MonoBehaviour
     private float bulletSpawnInterval = 0.5f;
     [SerializeField]
     private float shootingRunModifier = 0.66f;
-    [SerializeField]
-    private Camera camera;
+    //[SerializeField]
+    //private Camera camera;
 
 
 
@@ -38,6 +38,8 @@ public class PlayerShoot : MonoBehaviour
     private GameObject arrowPrefab;
     [SerializeField]
     private Transform shootPoint;
+    private Vector2 inputMouse;
+    Vector2 direction;
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class PlayerShoot : MonoBehaviour
 
         controls.Gameplay.Power.performed += context => StartShooting();
         controls.Gameplay.Power.canceled += context => StopShooting();
+        controls.Gameplay.MousePosition.performed += x => inputMouse = x.ReadValue<Vector2>();
     }
 
     private void Start()
@@ -53,9 +56,21 @@ public class PlayerShoot : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        
+        Vector3 mousePos = inputMouse;
+        Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPoint.position);
+       // Vector3 shootPos = GetComponent<Camera>().ScreenToWorldPoint(shootPoint.position);
+        mousePos.x = mousePos.x - shootPos.x;
+        mousePos.y = mousePos.y - shootPos.y;
+        direction = new Vector2(mousePos.x, mousePos.y);
+        float shootAngle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+        if(inputMouse.x < shootPoint.position.x)
+        {
+            shootPoint.rotation = Quaternion.Euler(new Vector3(180f, 0f, -shootAngle));
+        } else {
+            shootPoint.rotation = Quaternion.Euler(new Vector3(0f, 0f, shootAngle));
+        }
     }
 
     private void StartShooting()
@@ -121,7 +136,7 @@ public class PlayerShoot : MonoBehaviour
     {
         var mousepostionRaw = (Vector3)controls.Gameplay.MousePosition.ReadValue<Vector2>();
         mousepostionRaw.z = 1.0f;
-        var mousePositionWorld = camera.ScreenToWorldPoint(mousepostionRaw);
+        var mousePositionWorld = GetComponent<Camera>().ScreenToWorldPoint(mousepostionRaw);
         var directionVector = mousePositionWorld - this.transform.position;
         movement.startDash(directionVector.normalized);
         Debug.Log("direction: " + directionVector);
