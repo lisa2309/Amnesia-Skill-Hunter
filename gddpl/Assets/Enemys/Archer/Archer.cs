@@ -9,11 +9,7 @@ public class Archer : MonoBehaviour
     private Animator animator;
 
     //state
-    private bool shooting = false;
-    private Coroutine currentSpawnBulletInstance;
     private float guiMoveSpeed = 0.0f;
-    //private bool isAlive;
-    private int shootCounter = 0;
     private bool runningAway = false;
     
 
@@ -33,13 +29,20 @@ public class Archer : MonoBehaviour
 
     [Header("Shooting Parameters")]
     [SerializeField]
-    private float bulletSpawnInterval = 0.5f;
+    private float arrowSpawnInterval = 0.5f;
+
+    [SerializeField]
+    private float cooldown = 2.0f;
+    [SerializeField]
+    private float cooldownFac = 1.5f;
+    private float lastAttacked = -9999.0f;
+
     [SerializeField]
     private LayerMask targetLayers;
     [SerializeField]
     private LayerMask visibleLayers;
     [SerializeField]
-    private GameObject bulletPrefab;
+    private GameObject arrowPrefab;
     [SerializeField]
     private float vision;
 
@@ -76,24 +79,33 @@ public class Archer : MonoBehaviour
             }
        
         }
-        if (shootCounter >= 2)
+        if (PlayerVisible())
         {
-            ChangeDirection();
-            shootCounter = 0;
-            //GetNewShootingPosition();
+            if (Time.time > lastAttacked + cooldown)
+            {
+                moveSpeed = 0.0f;
+                animator.SetTrigger("ShootTrig");
+                Debug.Log("ShootTrig");
+
+                Instantiate(arrowPrefab, shootPoint.position, shootPoint.rotation);
+                lastAttacked = Time.time;
+            }
         }
-        if (PlayerVisible() && !shooting) StartShooting();
-        else if (!PlayerVisible() && shooting) StopShooting();
+        else if(!PlayerVisible() && Time.time > lastAttacked + (cooldown / cooldownFac)) // Falls es stoert das der Archer beim Raumgewinn wartet cooldownFac auf 1 setzen!!!
+        {
+            moveSpeed = guiMoveSpeed;
+        }
+        //else if (!PlayerVisible() && shooting) StopShooting();
         Move();
     }
 
     private void Move()
     {
-        float horizontalVelocity = transform.right.x * moveSpeed * Time.fixedDeltaTime;
-        rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
+            float horizontalVelocity = transform.right.x * moveSpeed * Time.fixedDeltaTime;
+            rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
 
-        //animation
-        animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalVelocity));
+            //animation
+            animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalVelocity));
     }
 
     private void ChangeDirection()
@@ -104,7 +116,7 @@ public class Archer : MonoBehaviour
     private bool WallOrGapAhead()
     {
         RaycastHit2D wallHit = Physics2D.Raycast(scanPoint.position, transform.right, turnDistance, obstacles);
-        RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 1.0f, obstacles);
+        RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 5.0f, obstacles);  // Float erhöhen, falls Scanpoint nur an Fuessen funktioniert
         return wallHit.collider != null || floorHit.collider == null;
     }
     private bool PlayerVisible()
@@ -120,14 +132,31 @@ public class Archer : MonoBehaviour
         }
         return playerHit;
     }
+
+
+    private void RunAway()
+    {
+        if( Vector2.Distance(transform.position, player.position) < minDistanceToPlayer && PlayerVisible())
+        {
+            runningAway = true;
+            Debug.Log("RunAway");
+            ChangeDirection();
+        }
+    }
+
+
+    /*
     private void StartShooting()
     {
-        
-        shooting = true;
-        animator.SetBool("Shooting", true);
-        moveSpeed = 0.0f; // Ueberschreibt die Moeglichkeit die Geschwindigkeit in Unity ein zu stellen
+        if (Time.time > lastAttacked + cooldown)
+        {
+            shooting = true;
+            animator.SetBool("Shooting", true);
+            moveSpeed = 0.0f; // Ueberschreibt die Moeglichkeit die Geschwindigkeit in Unity ein zu stellen
+            currentSpawnBulletInstance = StartCoroutine(SpawnArrow());
+            lastAttacked = Time.time;
+        }
 
-        currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
     }
     private void StopShooting()
     {
@@ -139,65 +168,23 @@ public class Archer : MonoBehaviour
 
         StopCoroutine(currentSpawnBulletInstance);
     }
-    private IEnumerator SpawnBullet()
+
+     private IEnumerator SpawnArrow()
     {
-        Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-        yield return new WaitForSeconds(bulletSpawnInterval);
+        Instantiate(arrowPrefab, shootPoint.position, shootPoint.rotation);
+        yield return new WaitForSeconds(arrowSpawnInterval);
         if (shooting)
         {
-            StartCoroutine(SpawnBullet());
-            shootCounter++;
+            StartCoroutine(SpawnArrow());
             Debug.Log("shootCounter = " + shootCounter);
         }
     }
-
-    /*
-    private void MoveFor()
-    {
-        float runDist = 0;
-        while (runDist < runDistance)
-        {
-            Move();
-            runDist = 0;
-        }
-        ChangeDirection();
-        runDist = 0;
-    }
-    */
-
-    
-    private void GetNewShootingPosition()
-    {
-        /*
-         * Nach dem der Archer 3 Schuesse abgegeben hat soll er eine bestimmte Anzahl von Schritten vom 
-         * Player weg laufen und sich dann wieder umderehen um erneut zu schiessen.
-         */
-        RaycastHit2D distanceToPlayer = Physics2D.Raycast(scanPoint.position, -transform.right, vision/4, targetLayers);
-        if (shootCounter == 0)
-        {
-            if (distanceToPlayer.collider == null)
-            {
-                ChangeDirection();
-            }
-        }
-    }
-
-    private void RunAway()
-    {
-        if( Vector2.Distance(transform.position, player.position) < minDistanceToPlayer && PlayerVisible())
-        {
-            runningAway = true;
-            Debug.Log("RunAway");
-            ChangeDirection();
-        }
-        
-
-    }
-
-    
-
-  
+     */
 
 
-   
+
+
+
+
+
 }
