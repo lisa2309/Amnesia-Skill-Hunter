@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    [SerializeField]
+    LevelLoader levelloader;
+
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        levelloader.LoadRandomMiddleGraveyardSceneNoBoss();
     }
 
     public void QuitGame()
