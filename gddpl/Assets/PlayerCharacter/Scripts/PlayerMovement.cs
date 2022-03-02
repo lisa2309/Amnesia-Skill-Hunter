@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("References")]
     [SerializeField]
-    private BoxCollider2D feetCollider;
+    private CapsuleCollider2D feetCollider;
 
     private void Awake()
     {
