@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 5217649756335140665}
   m_Layer: 7
   m_Name: 'PlayerCharacter '
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,7 +204,6 @@ MonoBehaviour:
   currentAbility: 2
   bulletSpawnInterval: 2
   shootingRunModifier: 0.66
-  camera: {fileID: 0}
   bulletPrefab: {fileID: 2010076067023003554, guid: 0064dd499587d764dbff802e386f8097, type: 3}
   arrowPrefab: {fileID: 245722459376835656, guid: ea417d2057d455549a2bb8221d438d48, type: 3}
   shootPoint: {fileID: 5217649756794826097}

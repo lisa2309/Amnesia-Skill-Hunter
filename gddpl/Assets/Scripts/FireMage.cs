@@ -39,8 +39,7 @@ public class FireMage : MonoBehaviour
     private Transform scanPointBack;
     [SerializeField]
     private Transform shootPoint;
-    [SerializeField]
-    private Transform player;
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +49,8 @@ public class FireMage : MonoBehaviour
          animator = GetComponent<Animator>();
 
          rb = GetComponent<Rigidbody2D>();
+
+         player = GameObject.FindWithTag("Player");
     }
 
 
@@ -65,13 +66,13 @@ public class FireMage : MonoBehaviour
             }
             if(WallOrGapAhead() == false)
             {
-                if(Vector2.Distance(transform.position, player.position) > stoppingDistance)
+                if(Vector2.Distance(transform.position, player.transform.position) > stoppingDistance)
                 {
                     //Debug.Log("Move");
-                    transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
                 }
-                else if(Vector2.Distance(transform.position, player.position) < stoppingDistance 
-                && Vector2.Distance(transform.position, player.position) > retreaDistance)
+                else if(Vector2.Distance(transform.position, player.transform.position) < stoppingDistance 
+                && Vector2.Distance(transform.position, player.transform.position) > retreaDistance)
                 {
                     //Debug.Log("Test");
                     //transform.position = this.transform.position;
@@ -90,10 +91,10 @@ public class FireMage : MonoBehaviour
 
                     }
                 }
-                else if (Vector2.Distance(transform.position, player.position) < retreaDistance)
+                else if (Vector2.Distance(transform.position, player.transform.position) < retreaDistance)
                 {
                     //Debug.Log("Retreat");
-                    transform.position = Vector2.MoveTowards(transform.position, player.position, -speed * Time.deltaTime);
+                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -speed * Time.deltaTime);
                 }
             } else if (WallOrGapAhead() == true) {
                // Debug.Log("Wall or Gap");

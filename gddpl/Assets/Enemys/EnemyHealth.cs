@@ -11,12 +11,13 @@ public class EnemyHealth : MonoBehaviour
     private Animator animator;
 
     private bool dead;
-    [SerializeField]
     private GameObject player;
     private PlayerShoot playershoot;
 
     private void Start() {
+        player = GameObject.FindWithTag("Player");
         playershoot = player.GetComponent<PlayerShoot>();
+        
     }
 
 
