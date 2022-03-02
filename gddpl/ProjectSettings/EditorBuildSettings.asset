@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 0eb8b4cf17ab51e4b8ac7bee2f231b3a
   - enabled: 1
-    path: Assets/Scenes/Bogenschuetze.unity
-    guid: 15656eec17c90eb4da326b6b5c3a6988
-  - enabled: 0
     path: Assets/Scenes/DorfTest.unity
     guid: e205c399e95a9fa4c9eee0f7e3073dc4
   - enabled: 0
