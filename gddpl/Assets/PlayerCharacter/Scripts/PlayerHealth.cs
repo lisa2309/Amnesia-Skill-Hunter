@@ -6,8 +6,6 @@ public class PlayerHealth : MonoBehaviour
 {
     //state
     private int currentHealth;
-    
-    [SerializeField]
     private ProgressBar progressBar;
 
     //config
@@ -23,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
+        progressBar = ProgressBar.FindObjectOfType<ProgressBar>();
         currentHealth = maxHealth;
     }
 

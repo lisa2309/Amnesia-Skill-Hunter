@@ -28,7 +28,6 @@ public class SkeletonController : MonoBehaviour
     private float vision;
     [SerializeField]
     private float range;
-    [SerializeField]
     private Transform player;
     [SerializeField]
     private float attackCooldown;
@@ -43,6 +42,7 @@ public class SkeletonController : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         isDead = animator.GetBool("Dead");
