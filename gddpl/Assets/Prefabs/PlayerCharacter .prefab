@@ -201,10 +201,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54e69ec01ce898443ab33ccf1ce8ca7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentAbility: 2
+  currentAbility: 4
+  cooldown: 2
   bulletSpawnInterval: 2
   shootingRunModifier: 0.66
   camera: {fileID: 0}
+  villager: {fileID: 4005409643463368916, guid: be1a7a6095384fe42913224e144bdca9, type: 3}
+  archerFac: 2
   bulletPrefab: {fileID: 2010076067023003554, guid: 0064dd499587d764dbff802e386f8097, type: 3}
   arrowPrefab: {fileID: 245722459376835656, guid: ea417d2057d455549a2bb8221d438d48, type: 3}
   shootPoint: {fileID: 5217649756794826097}
