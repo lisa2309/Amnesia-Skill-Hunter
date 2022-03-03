@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private LayerMask targetLayers;
     private Animator animator;
-    bool isTriggered = false;
+   // bool isTriggered = false;
     [SerializeField]
     private int damageRange = 2;
 
@@ -41,7 +41,7 @@ public class Bullet : MonoBehaviour
         
         CircleCollider2D coll = gameObject.GetComponent<CircleCollider2D>();
         coll.radius = damageRange;
-        isTriggered = true;
+        //isTriggered = true;
 
         if ((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
@@ -62,9 +62,10 @@ public class Bullet : MonoBehaviour
             else
             {
                 PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-                if (playerHealth.LooseHealth(damage) == true)
+                if (playerHealth != null)
                 {
-                    SceneManager.LoadScene("Lisa's Scene");
+                    playerHealth.LooseHealth(damage);
+                    //SceneManager.LoadScene("Lisa's Scene");
                     //FindObjectOfType<LevelLoader>().RestartLevel();
                 }
             }
