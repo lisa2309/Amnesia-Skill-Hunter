@@ -16,6 +16,7 @@ public class PlayerShoot : MonoBehaviour
     private Coroutine currentSpawnBulletInstance;
     public Ability currentAbility = Ability.Dash;
 
+    [SerializeField]
     private float cooldown = 2.0f;
     private float lastAttacked = -9999.0f;
 
@@ -27,6 +28,12 @@ public class PlayerShoot : MonoBehaviour
     private float shootingRunModifier = 0.66f;
     [SerializeField]
     private Camera camera;
+
+    [SerializeField]
+    private GameObject villager;
+
+    [SerializeField]
+    private float archerFac = 2.0f;
 
 
 
@@ -51,6 +58,11 @@ public class PlayerShoot : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         movement = GetComponent<PlayerMovement>();
+
+        if (this.villager.name == "VillageArcher")
+        {
+            cooldown = cooldown / archerFac;
+        }
     }
 
     private void FixedUpdate()
@@ -100,6 +112,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void ShootBow()
     {
+        
         if (Time.time > lastAttacked + cooldown)
         {
             Debug.Log("Shoot");
