@@ -312,18 +312,6 @@ PrefabInstance:
       propertyPath: progressBar
       value: 
       objectReference: {fileID: 775509177}
-    - target: {fileID: 5217649756335140667, guid: b1e005067151b144dab4503f90c8c091, type: 3}
-      propertyPath: villager
-      value: 
-      objectReference: {fileID: 4005409643463368916, guid: be1a7a6095384fe42913224e144bdca9, type: 3}
-    - target: {fileID: 5217649756335140667, guid: b1e005067151b144dab4503f90c8c091, type: 3}
-      propertyPath: archerFac
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5217649756335140667, guid: b1e005067151b144dab4503f90c8c091, type: 3}
-      propertyPath: currentAbility
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 5217649756902209687, guid: b1e005067151b144dab4503f90c8c091, type: 3}
       propertyPath: m_RootOrder
       value: 5
