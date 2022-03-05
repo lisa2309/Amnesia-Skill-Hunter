@@ -51,7 +51,6 @@ public class Archer : MonoBehaviour
     private Transform scanPoint;
     [SerializeField]
     private Transform shootPoint;
-    [SerializeField]
     private Transform player;
 
 
@@ -62,6 +61,7 @@ public class Archer : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         guiMoveSpeed = moveSpeed;
+        player = GameObject.FindWithTag("Player").transform;
     }
 
     private void FixedUpdate()
@@ -116,7 +116,7 @@ public class Archer : MonoBehaviour
     private bool WallOrGapAhead()
     {
         RaycastHit2D wallHit = Physics2D.Raycast(scanPoint.position, transform.right, turnDistance, obstacles);
-        RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 5.0f, obstacles);  // Float erhöhen, falls Scanpoint nur an Fuessen funktioniert
+        RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 5.0f, obstacles);  // Float erhï¿½hen, falls Scanpoint nur an Fuessen funktioniert
         return wallHit.collider != null || floorHit.collider == null;
     }
     private bool PlayerVisible()

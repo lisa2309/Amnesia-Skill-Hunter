@@ -1,28 +1,28 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    //state
-    private int enemyCount;
+    [SerializeField]
+    private List<string> GraveyardMiddleVariationsNoBoss;
 
     private void Start()
     {
-        enemyCount = FindObjectsOfType<Enemy>().Length;
+
     }
 
     public void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        LoadRandomMiddleGraveyardSceneNoBoss();
     }
     public void DecrementEnemyCount()
     {
-        enemyCount--;
-        if (enemyCount <= 0)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
+
+    }
+
+    public void LoadRandomMiddleGraveyardSceneNoBoss()
+    {
+        SceneManager.LoadScene(GraveyardMiddleVariationsNoBoss[Random.Range(0, GraveyardMiddleVariationsNoBoss.Count - 1)]);
     }
 }
