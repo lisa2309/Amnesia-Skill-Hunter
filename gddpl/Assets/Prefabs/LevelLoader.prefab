@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2211347114531339585}
   - component: {fileID: 2211347114531339586}
   m_Layer: 0
-  m_Name: LevelLoader 1
+  m_Name: LevelLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,3 +46,5 @@ MonoBehaviour:
   GraveyardMiddleVariationsNoBoss:
   - Graveyard_middle_2
   - Graveyard_middle_3
+  - Graveyard_middle_4
+  - Graveyard_middle_5
