@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class SkeletonController : MonoBehaviour
 {
-    private Animator animator;
-    private Rigidbody2D rb;
-    private float lastAttackedAt = -9999f;
-
-
     [Header("General")]
     [SerializeField]
     private float movementSpeed;  
@@ -16,6 +11,15 @@ public class SkeletonController : MonoBehaviour
     private LayerMask obstacles;
     [SerializeField]
     private Transform scanPoint;
+    [SerializeField]
+    private Transform attackPoint;
+    [SerializeField]
+    private LayerMask playerLayer;
+
+    private Animator animator;
+    private Rigidbody2D rb;
+    private float lastAttackedAt = -9999f;
+    private PlayerHealth playerHealth;
     private bool isDead;
     private float turnDistance = 1.5f;
 
@@ -34,14 +38,15 @@ public class SkeletonController : MonoBehaviour
     [SerializeField]
     private float attackSpeedSlow;
     [SerializeField]
-    private float damageSlow;
+    private int damageSlow;
     [SerializeField]
     private float attackSpeedFast;
     [SerializeField]
-    private float damageFast;
+    private int damageFast;
 
     private void Start()
     {
+        playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
         player = GameObject.FindWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -57,12 +62,11 @@ public class SkeletonController : MonoBehaviour
         if (WallOrGapAhead()) ChangeDirection();
         if (PlayerVisible())
         {
-            //Debug.Log("Dist: " + GetDistance());
             if (GetDistance() <= range)
             {
                 if (Time.time > lastAttackedAt + attackCooldown)
                 {
-                    AttackB();
+                    Attack();
                     lastAttackedAt = Time.time;
                 }
             }
@@ -70,7 +74,16 @@ public class SkeletonController : MonoBehaviour
         Move();
     }
 
-    private void AttackA()
+    private void Attack()
+    {
+        int roll = Random.Range(1, 3);
+        if (roll < 2)
+            AttackSlow();
+        else 
+            AttackFast();
+    }
+
+    private void AttackSlow()
     {
         Debug.Log("AttackA");
         rb.velocity = new Vector2(0, rb.velocity.y);
@@ -78,13 +91,37 @@ public class SkeletonController : MonoBehaviour
         
     }
 
-    private void AttackB()
+    private void AttackFast()
     {
         Debug.Log("AttackB");
         rb.velocity = new Vector2(0, rb.velocity.y);
         animator.SetTrigger("attackB");
     }
 
+    //called from animation event so that damage check is done at proper time relative to the animation happening on screen
+    private void DoDamageSlow()
+    {
+        if (detectHit())
+            playerHealth.LooseHealth(damageSlow);
+    }
+
+    //called from animation event so that damage check is done at proper time relative to the animation happening on screen
+    private void DoDamageFast()
+    {
+        if (detectHit())
+            playerHealth.LooseHealth(damageFast);
+    }
+
+
+    //check if player hitbox was hit with the attack
+    private bool detectHit()
+    {
+        bool result = false;
+        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attackPoint.position, 0.6f, playerLayer);
+        if (hitPlayer.Length > 0)
+            result = true;
+        return result;
+    }
     private void Move()
     {
         //check if movement is allowed during animation
