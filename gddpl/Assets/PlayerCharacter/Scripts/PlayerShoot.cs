@@ -58,18 +58,19 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        Vector3 mousePos = inputMouse;
-        Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPoint.position);
-       // Vector3 shootPos = GetComponent<Camera>().ScreenToWorldPoint(shootPoint.position);
-        mousePos.x = mousePos.x - shootPos.x;
-        mousePos.y = mousePos.y - shootPos.y;
-        direction = new Vector2(mousePos.x, mousePos.y);
-        float shootAngle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-        if(inputMouse.x < shootPoint.position.x)
-        {
-            shootPoint.rotation = Quaternion.Euler(new Vector3(180f, 0f, -shootAngle));
-        } else {
-            shootPoint.rotation = Quaternion.Euler(new Vector3(0f, 0f, shootAngle));
+        if(currentAbility == Ability.Fireball){
+            Vector3 mousePos = inputMouse;
+            Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPoint.position);
+            mousePos.x = mousePos.x - shootPos.x;
+            mousePos.y = mousePos.y - shootPos.y;
+            direction = new Vector2(mousePos.x, mousePos.y);
+            float shootAngle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+            if(inputMouse.x < shootPoint.position.x)
+            {
+                shootPoint.rotation = Quaternion.Euler(new Vector3(180f, 0f, -shootAngle));
+            } else {
+                shootPoint.rotation = Quaternion.Euler(new Vector3(0f, 0f, shootAngle));
+            }
         }
     }
 
@@ -115,10 +116,11 @@ public class PlayerShoot : MonoBehaviour
 
     private void ShootBow()
     {
+        shootPoint.rotation = Quaternion.Euler(new Vector3(shootPoint.eulerAngles.x , shootPoint.eulerAngles.y, 0f));
         if (Time.time > lastAttacked + cooldown)
         {
             Debug.Log("Shoot");
-            shooting = true;
+            shooting = true; 
             currentSpawnBulletInstance = StartCoroutine(SpawnArrow());
             //playerMovement.SetRunSpeedModifier(shootingRunModiefier);
 
