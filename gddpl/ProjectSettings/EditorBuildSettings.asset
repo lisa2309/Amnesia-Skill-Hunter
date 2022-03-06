@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Graveyard_Middle_3.unity
     guid: 244d1569a3e643340b3bbd3a6243a574
+  - enabled: 1
+    path: Assets/Scenes/Graveyard_Middle_4.unity
+    guid: 5c11a5f3fb9bccd4d9ae69afa466e29f
+  - enabled: 1
+    path: Assets/Scenes/Graveyard_Middle_5.unity
+    guid: 555713b20efe97e43a51aa36b110ad42
   - enabled: 0
     path: Assets/Scenes/DorfTest.unity
     guid: e205c399e95a9fa4c9eee0f7e3073dc4
