@@ -10,7 +10,7 @@ public class Menu : MonoBehaviour
 
     public void PlayGame()
     {
-        levelloader.LoadRandomMiddleGraveyardSceneNoBoss();
+        levelloader.StartGame();
     }
 
     public void QuitGame()

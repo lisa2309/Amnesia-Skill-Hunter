@@ -12,14 +12,19 @@ public class LevelLoader : MonoBehaviour
 
     }
 
+    public void StartGame()
+    {
+        SceneManager.LoadScene("DorfTest");
+    }
+
     public void LoadNextLevel()
     {
         LoadRandomMiddleGraveyardSceneNoBoss();
     }
 
-    public void RestartLevel()
+    public void OnPlayerDeath()
     {
-        LoadRandomMiddleGraveyardSceneNoBoss();
+        SceneManager.LoadScene("DorfTest");
     }
 
     public void LoadRandomMiddleGraveyardSceneNoBoss()
