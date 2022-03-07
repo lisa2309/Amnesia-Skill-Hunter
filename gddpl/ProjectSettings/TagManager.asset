@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - FireMage
+  - Archer
   layers:
   - Default
   - TransparentFX
@@ -60,12 +61,12 @@ TagManager:
   - name: Kisten
     uniqueID: 2488395681
     locked: 0
-  - name: PlayerCharacter
-    uniqueID: 3182918705
-    locked: 0
   - name: Floor
     uniqueID: 2130190297
     locked: 0
   - name: LevelEnde
     uniqueID: 506312685
+    locked: 0
+  - name: PlayerCharacter
+    uniqueID: 3182918705
     locked: 0

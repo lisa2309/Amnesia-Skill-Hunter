@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     //config
     [SerializeField]
-    private float velocity = 10.0f;
+    private float velocity = 30.0f;
     [SerializeField]
     private int damage = 1;
     [SerializeField]
