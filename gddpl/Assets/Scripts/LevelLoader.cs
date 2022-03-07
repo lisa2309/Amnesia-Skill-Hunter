@@ -12,13 +12,14 @@ public class LevelLoader : MonoBehaviour
 
     }
 
-    public void RestartLevel()
+    public void LoadNextLevel()
     {
         LoadRandomMiddleGraveyardSceneNoBoss();
     }
-    public void DecrementEnemyCount()
-    {
 
+    public void RestartLevel()
+    {
+        LoadRandomMiddleGraveyardSceneNoBoss();
     }
 
     public void LoadRandomMiddleGraveyardSceneNoBoss()
