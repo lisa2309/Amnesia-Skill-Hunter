@@ -70,6 +70,9 @@ public class PlayerMovement : MonoBehaviour
         controls.Gameplay.Jump.performed += context => SetEarlyJumpTimer();
         controls.Gameplay.Jump.canceled += context => CancelJump();
 
+        controls.Gameplay.ActivateGodMode.performed += context => EnableGodMode();
+            
+
     }
     private void Start()
     {
@@ -84,10 +87,9 @@ public class PlayerMovement : MonoBehaviour
         CheckGrounded();
         ApplyFallingGravityScale();
         UpdateTimers();
-
+        Debug.Log(StateController.isGodModeEnabled);
         Run();
-        if(dashing)
-            Dash();
+
         if (earlyJumpTimer > 0.0f && rememberGroundedTimer > 0.0f) 
             Jump();
 
@@ -179,42 +181,12 @@ public class PlayerMovement : MonoBehaviour
         else if (rb.velocity.x < 0.0f) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
     }
 
-    public void Dash()
+    private void EnableGodMode()
     {
-        Physics2D.IgnoreLayerCollision(6, 7, true);
-        DealDashDamage();
-
-        if (dashTime <= 0)
-        {
-            dashDirection = new Vector2(0,0);
-            dashing = false;
-            rb.velocity = Vector2.zero;
-            Physics2D.IgnoreLayerCollision(6, 7, true);
-        }
+        if (StateController.isGodModeEnabled)
+            StateController.isGodModeEnabled = false;
         else
-        {
-            dashTime -= Time.fixedDeltaTime;
-            rb.velocity = dashDirection * dashSpeed;
-            Physics2D.IgnoreLayerCollision(6, 7, true);
-        }
-    }
-
-    private void DealDashDamage()
-    {
-        var hitEnemies = Physics2D.OverlapCircleAll(characterCenter.position, 0.1f, enemyLayers);
-
-        foreach (var enemy in hitEnemies)
-        {
-            Debug.Log("ATTACK!");
-            enemy.GetComponent<EnemyHealth>().LooseHealth(1);
-        }
-    }
-
-    public void startDash(Vector2 direction) 
-    {
-        dashing = true;
-        dashTime = startDashTime;
-        dashDirection = direction;
+            StateController.isGodModeEnabled = true;
     }
 
     private void OnEnable()

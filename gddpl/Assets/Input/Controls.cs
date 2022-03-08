@@ -57,6 +57,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ActivateGodMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""dce12d57-225f-4321-a279-3837394d43ed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -136,6 +144,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8edc701-2418-4083-9e5e-8a58d0de535e"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateGodMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -149,6 +168,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Gameplay_Power = m_Gameplay.FindAction("Power", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_MousePosition = m_Gameplay.FindAction("MousePosition", throwIfNotFound: true);
+        m_Gameplay_ActivateGodMode = m_Gameplay.FindAction("ActivateGodMode", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -203,6 +223,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Power;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_MousePosition;
+    private readonly InputAction m_Gameplay_ActivateGodMode;
     public struct GameplayActions
     {
         private @Controls m_Wrapper;
@@ -212,6 +233,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Power => m_Wrapper.m_Gameplay_Power;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @MousePosition => m_Wrapper.m_Gameplay_MousePosition;
+        public InputAction @ActivateGodMode => m_Wrapper.m_Gameplay_ActivateGodMode;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -236,6 +258,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @MousePosition.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMousePosition;
+                @ActivateGodMode.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateGodMode;
+                @ActivateGodMode.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateGodMode;
+                @ActivateGodMode.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateGodMode;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -255,6 +280,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
+                @ActivateGodMode.started += instance.OnActivateGodMode;
+                @ActivateGodMode.performed += instance.OnActivateGodMode;
+                @ActivateGodMode.canceled += instance.OnActivateGodMode;
             }
         }
     }
@@ -266,5 +294,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnPower(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnActivateGodMode(InputAction.CallbackContext context);
     }
 }
