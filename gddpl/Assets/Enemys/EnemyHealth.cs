@@ -46,24 +46,24 @@ public class EnemyHealth : MonoBehaviour
         {
             animator.SetBool("Dead", true);
             Debug.Log("Enemy is dead");
-            playershoot.currentAbility = CurrentEnemy();
+            StateController.currentAbility = CurrentEnemy();
         }
        
     }
 
-    private Ability CurrentEnemy()
+    private StateController.Ability CurrentEnemy()
     {
         Debug.Log(this.gameObject.name);
         if(this.gameObject.tag == "FireMage")
         {
             Debug.Log("FireBall!!!");
-            return Ability.Fireball;
+            return StateController.Ability.Fireball;
         } 
         else if(this.gameObject.tag == "Archer") 
         {
-            return Ability.Bow;
+            return StateController.Ability.Bow;
         } else {
-            return Ability.None;
+            return StateController.Ability.None;
         }
     }
 
