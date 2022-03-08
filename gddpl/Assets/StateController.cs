@@ -4,8 +4,11 @@ using UnityEngine;
 
 public static class StateController
 {
+    //LevelState
     public static int currentStage = 0;
     public static int currentSection = 0;
+
+    //Playerstate
     public static bool isGodModeEnabled = false;
     public static int currentPlayerHealth;
 }

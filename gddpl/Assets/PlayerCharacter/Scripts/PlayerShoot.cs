@@ -14,7 +14,7 @@ public class PlayerShoot : MonoBehaviour
     //state
     private bool shooting;
     private Coroutine currentSpawnBulletInstance;
-    public Ability currentAbility = Ability.Dash;
+    public Ability currentAbility;
 
     [SerializeField]
     private float cooldown = 2.0f;
@@ -98,9 +98,6 @@ public class PlayerShoot : MonoBehaviour
                 ShootBow();
                 Debug.Log("BOOOOOOOOOOOW");
                 break;
-            case Ability.Dash:
-                Dash();
-                break;
             case Ability.Stamp:
                 Stamp();
                 break;
@@ -146,16 +143,6 @@ public class PlayerShoot : MonoBehaviour
         
     }
 
-    private void Dash()
-    {
-        var mousepostionRaw = (Vector3)controls.Gameplay.MousePosition.ReadValue<Vector2>();
-        mousepostionRaw.z = 1.0f;
-        var mousePositionWorld = GetComponent<Camera>().ScreenToWorldPoint(mousepostionRaw);
-        var directionVector = mousePositionWorld - this.transform.position;
-        movement.startDash(directionVector.normalized);
-        Debug.Log("direction: " + directionVector);
-    }
-
     private void Stamp()
     {
 
@@ -175,9 +162,6 @@ public class PlayerShoot : MonoBehaviour
                 break;
             case Ability.Bow:
                 StopShootBow();
-                break;
-            case Ability.Dash:
-                StopDash();
                 break;
             case Ability.Stamp:
                 StopStamp();
@@ -240,7 +224,6 @@ public enum Ability
 {
     Fireball,
     Bow,
-    Dash,
     Stamp,
     None
 }

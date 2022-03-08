@@ -27,6 +27,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update(){
         progressBar.BarValue = StateController.currentPlayerHealth;
+        Debug.Log(StateController.currentPlayerHealth);
+        checkGodMode();
     }
 
     public float GetCurrentHealth()
@@ -39,5 +41,11 @@ public class PlayerHealth : MonoBehaviour
         StateController.currentPlayerHealth -= damage;
         animator.SetTrigger("Hit");
         return StateController.currentPlayerHealth <= 0;
+    }
+
+    private void checkGodMode()
+    {
+        if (StateController.isGodModeEnabled)
+            StateController.currentPlayerHealth = maxHealth;
     }
 }
