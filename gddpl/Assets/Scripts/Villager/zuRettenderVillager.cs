@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Villiager : MonoBehaviour
+public class zuRettenderVillager : MonoBehaviour
 {
-
     //cached references
     private Rigidbody2D rb;
     private Animator animator;
@@ -30,8 +29,6 @@ public class Villiager : MonoBehaviour
     [SerializeField]
     private Transform scanPoint;
 
-
-
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -41,17 +38,26 @@ public class Villiager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-            if (Time.time > lastMoved + animationCooldown)
-            {
-                animator.SetTrigger("Chillax");
-                Debug.Log("Player visible");
-            lastMoved = Time.time;
-            }
-        
+        Move();
     }
 
+    private void Move()
+    {
+        float horizontalVelocity = transform.right.x * moveSpeed * Time.fixedDeltaTime;
+        rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
 
+        //animation
+        animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalVelocity));
+    }
 
-   
+    private bool isFree()
+    {
+        bool isFree = false;
+        RaycastHit2D hit = Physics2D.Raycast(scanPoint.position, transform.right, vision, visibleLayers);
+        if (hit.collider != null)
+        {
+            isFree = true;
+        }
+        return isFree;
+    }
 }
