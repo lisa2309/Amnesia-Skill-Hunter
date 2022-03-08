@@ -93,7 +93,7 @@ public class FireMage : MonoBehaviour
                 }
                 else if (Vector2.Distance(transform.position, player.transform.position) < retreaDistance)
                 {
-                    //Debug.Log("Retreat");
+                    Debug.Log("Retreat");
                     transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -speed * Time.deltaTime);
                 }
             } else if (WallOrGapAhead() == true) {

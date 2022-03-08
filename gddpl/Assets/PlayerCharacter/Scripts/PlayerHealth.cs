@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update(){
         progressBar.BarValue = StateController.currentPlayerHealth;
-        Debug.Log(StateController.currentPlayerHealth);
+        //Debug.Log(StateController.currentPlayerHealth);
         checkGodMode();
     }
 
