@@ -213,7 +213,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   vision: 10
-  range: 1.5
+  range: 2.5
   attackCooldown: 2
   attackSpeedSlow: 1
   damageSlow: 5

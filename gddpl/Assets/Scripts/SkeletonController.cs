@@ -62,6 +62,7 @@ public class SkeletonController : MonoBehaviour
         if (WallOrGapAhead()) ChangeDirection();
         if (PlayerVisible())
         {
+            Debug.Log("YO I CAN SEE--> ATTACK");
             if (GetDistance() <= range)
             {
                 if (Time.time > lastAttackedAt + attackCooldown)
@@ -117,7 +118,7 @@ public class SkeletonController : MonoBehaviour
     private bool detectHit()
     {
         bool result = false;
-        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attackPoint.position, 0.6f, playerLayer);
+        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attackPoint.position, 0.8f, playerLayer);
         if (hitPlayer.Length > 0)
             result = true;
         return result;
