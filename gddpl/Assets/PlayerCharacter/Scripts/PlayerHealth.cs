@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     //state
-    private int currentHealth;
     private ProgressBar progressBar;
 
     //config
@@ -22,24 +21,23 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         progressBar = ProgressBar.FindObjectOfType<ProgressBar>();
-        currentHealth = maxHealth;
+        if (StateController.currentPlayerHealth == 0)
+            StateController.currentPlayerHealth = maxHealth;
     }
 
     private void Update(){
-        progressBar.BarValue = currentHealth;
+        progressBar.BarValue = StateController.currentPlayerHealth;
     }
 
     public float GetCurrentHealth()
     {
-        return currentHealth;
+        return StateController.currentPlayerHealth;
     }
 
     public bool LooseHealth(int damage)
     {
-        currentHealth -= damage;
-        Debug.Log("Got Damaged: " + damage);
-        Debug.Log("current health: " + currentHealth);
+        StateController.currentPlayerHealth -= damage;
         animator.SetTrigger("Hit");
-        return currentHealth <= 0;
+        return StateController.currentPlayerHealth <= 0;
     }
 }
