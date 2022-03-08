@@ -38,7 +38,7 @@ public class zuRettenderVillager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move();
+        if(isFree())Move();
     }
 
     private void Move()
