@@ -7,6 +7,9 @@ public class LevelLoader : MonoBehaviour
     [SerializeField]
     private List<string> GraveyardMiddleVariationsNoBoss;
 
+    int currentStage;
+    int currentSection;
+
     private void Start()
     {
 
@@ -19,7 +22,25 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        LoadRandomMiddleGraveyardSceneNoBoss();
+        Debug.Log(currentSection);
+        if (StateController.currentStage == 0)
+        {
+            if(StateController.currentSection <= 2)
+            {
+                StateController.currentSection++;
+                Debug.Log(StateController.currentSection);
+                LoadRandomMiddleGraveyardSceneNoBoss();
+            }
+            else
+            {
+                StateController.currentStage++;
+                SceneManager.LoadScene("Graveyard_Middle_MiniBoss");
+            }
+        }
+        else
+        {
+            SceneManager.LoadScene("DorfTest");
+        }
     }
 
     public void OnPlayerDeath()
