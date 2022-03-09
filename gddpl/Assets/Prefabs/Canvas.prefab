@@ -169,12 +169,11 @@ MonoBehaviour:
   BarColor: {r: 0, g: 1, b: 0.07058835, a: 1}
   BarBackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   BarBackGroundSprite: {fileID: 21300000, guid: 7cda1f7db3aff084f9f09462a0f7f99f, type: 3}
-  Alert: 20
+  Alert: 1
   BarAlertColor: {r: 0.990566, g: 0, b: 0, a: 1}
   sound: {fileID: 8300000, guid: 349a5d092ededeb43a683783cb5ea234, type: 3}
   repeat: 0
   RepeatRate: 1
-  player: {fileID: 0}
 --- !u!82 &6589256081633595867
 AudioSource:
   m_ObjectHideFlags: 0
@@ -349,7 +348,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Health 50/100
+  m_Text: Health 50/10
 --- !u!1 &6589256082394882878
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,7 +419,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.5
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -440,7 +439,7 @@ GameObject:
   - component: {fileID: 6589256082710236294}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -453,7 +452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6589256082710236292}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -971.4026, y: -534.09204, z: -10}
+  m_LocalPosition: {x: -991.38, y: -539.75, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6589256081017764955}

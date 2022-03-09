@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     //state
-    private int currentHealth;
-    public ProgressBar pb;
+    private ProgressBar progressBar;
 
     //config
     [SerializeField]
@@ -21,24 +20,32 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        progressBar = ProgressBar.FindObjectOfType<ProgressBar>();
+        if (StateController.currentPlayerHealth == 0)
+            StateController.currentPlayerHealth = maxHealth;
     }
 
     private void Update(){
-        pb.BarValue = currentHealth;
+        progressBar.BarValue = StateController.currentPlayerHealth;
+        //Debug.Log(StateController.currentPlayerHealth);
+        checkGodMode();
     }
 
     public float GetCurrentHealth()
     {
-        return currentHealth;
+        return StateController.currentPlayerHealth;
     }
 
     public bool LooseHealth(int damage)
     {
-        currentHealth -= damage;
-        Debug.Log("Got Damaged: " + damage);
-        Debug.Log("current health: " + currentHealth);
+        StateController.currentPlayerHealth -= damage;
         animator.SetTrigger("Hit");
-        return currentHealth <= 0;
+        return StateController.currentPlayerHealth <= 0;
+    }
+
+    private void checkGodMode()
+    {
+        if (StateController.isGodModeEnabled)
+            StateController.currentPlayerHealth = maxHealth;
     }
 }

@@ -1,28 +1,55 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    //state
-    private int enemyCount;
+    [SerializeField]
+    private List<string> GraveyardMiddleVariationsNoBoss;
+
+    int currentStage;
+    int currentSection;
 
     private void Start()
     {
-        enemyCount = FindObjectsOfType<Enemy>().Length;
+
     }
 
-    public void RestartLevel()
+    public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("DorfTest");
     }
-    public void DecrementEnemyCount()
+
+    public void LoadNextLevel()
     {
-        enemyCount--;
-        if (enemyCount <= 0)
+        Debug.Log(currentSection);
+        if (StateController.currentStage == 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if(StateController.currentSection <= 1)
+            {
+                StateController.currentSection++;
+                Debug.Log(StateController.currentSection);
+                LoadRandomMiddleGraveyardSceneNoBoss();
+            }
+            else
+            {
+                StateController.currentStage++;
+                SceneManager.LoadScene("Graveyard_Middle_MiniBoss");
+            }
         }
+        else
+        {
+            SceneManager.LoadScene("DorfTest");
+        }
+    }
+
+    public void OnPlayerDeath()
+    {
+        SceneManager.LoadScene("DorfTest");
+    }
+
+    public void LoadRandomMiddleGraveyardSceneNoBoss()
+    {
+        SceneManager.LoadScene(GraveyardMiddleVariationsNoBoss[Random.Range(0, GraveyardMiddleVariationsNoBoss.Count - 1)]);
     }
 }

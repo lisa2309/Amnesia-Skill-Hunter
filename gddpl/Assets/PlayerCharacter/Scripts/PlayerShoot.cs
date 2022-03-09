@@ -14,7 +14,10 @@ public class PlayerShoot : MonoBehaviour
     //state
     private bool shooting;
     private Coroutine currentSpawnBulletInstance;
-    public Ability currentAbility = Ability.Dash;
+
+    [SerializeField]
+    private float cooldown = 2.0f;
+    private float lastAttacked = -9999.0f;
 
     //config
     [Header("Shooting")]
@@ -22,8 +25,14 @@ public class PlayerShoot : MonoBehaviour
     private float bulletSpawnInterval = 0.5f;
     [SerializeField]
     private float shootingRunModifier = 0.66f;
+    //[SerializeField]
+    //private Camera camera;
+
     [SerializeField]
-    private Camera camera;
+    private GameObject villager;
+
+    [SerializeField]
+    private float archerFac = 2.0f;
 
 
 
@@ -32,38 +41,70 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private GameObject bulletPrefab;
     [SerializeField]
+    private GameObject arrowPrefab;
+    [SerializeField]
     private Transform shootPoint;
+    private Vector2 inputMouse;
+    Vector2 direction;
 
+    private Transform defaultShootPoint;
+
+    
     private void Awake()
     {
         controls = new Controls();
 
+        defaultShootPoint = shootPoint;
+
         controls.Gameplay.Power.performed += context => StartShooting();
         controls.Gameplay.Power.canceled += context => StopShooting();
+        controls.Gameplay.MousePosition.performed += x => inputMouse = x.ReadValue<Vector2>();
     }
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         movement = GetComponent<PlayerMovement>();
+
+        if (this.villager.name == "VillageArcher")
+        {
+            cooldown = cooldown / archerFac;
+        }
+    }
+
+    private void Update()
+    {
+        if(StateController.currentAbility == StateController.Ability.Fireball){
+            Vector3 mousePos = inputMouse;
+            Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPoint.position);
+            mousePos.x = mousePos.x - shootPos.x;
+            mousePos.y = mousePos.y - shootPos.y;
+            direction = new Vector2(mousePos.x, mousePos.y);
+            float shootAngle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+            if(inputMouse.x < shootPoint.position.x)
+            {
+                shootPoint.rotation = Quaternion.Euler(new Vector3(180f, 0f, -shootAngle));
+            } else {
+                shootPoint.rotation = Quaternion.Euler(new Vector3(0f, 0f, shootAngle));
+            }
+        }
+        if(!(StateController.currentAbility == StateController.Ability.Fireball))
+        {
+            shootPoint = defaultShootPoint;
+        }
     }
 
     private void StartShooting()
     {
-        switch (currentAbility)
+        switch (StateController.currentAbility)
         {
-            case Ability.Fireball:
+            case StateController.Ability.Fireball:
                 ShootFireball();
+                Debug.Log("FireBall");
                 break;
-            case Ability.Bow:
+            case StateController.Ability.Bow:
                 ShootBow();
                 Debug.Log("BOOOOOOOOOOOW");
-                break;
-            case Ability.Dash:
-                Dash();
-                break;
-            case Ability.Stamp:
-                Stamp();
                 break;
             default:
                 break;
@@ -89,22 +130,22 @@ public class PlayerShoot : MonoBehaviour
 
     private void ShootBow()
     {
+        shootPoint.rotation = Quaternion.Euler(new Vector3(shootPoint.eulerAngles.x , shootPoint.eulerAngles.y, 0f));
+        if (Time.time > lastAttacked + cooldown)
+        {
+            Debug.Log("Shoot");
+            shooting = true; 
+            currentSpawnBulletInstance = StartCoroutine(SpawnArrow());
+            //playerMovement.SetRunSpeedModifier(shootingRunModiefier);
 
-    }
+            //animation
+            animator.SetBool("Croushing", true);
 
-    private void Dash()
-    {
-        var mousepostionRaw = (Vector3)controls.Gameplay.MousePosition.ReadValue<Vector2>();
-        mousepostionRaw.z = 1.0f;
-        var mousePositionWorld = camera.ScreenToWorldPoint(mousepostionRaw);
-        var directionVector = mousePositionWorld - this.transform.position;
-        movement.startDash(directionVector.normalized);
-        Debug.Log("direction: " + directionVector);
-    }
+            movement.SetRunSpeedModifier(shootingRunModifier);
 
-    private void Stamp()
-    {
-
+            lastAttacked = Time.time;
+        }
+        
     }
 
     private void StopShooting()
@@ -114,19 +155,13 @@ public class PlayerShoot : MonoBehaviour
 
         movement.ResetRunSpeedModifier();
 
-        switch (currentAbility)
+        switch (StateController.currentAbility)
         {
-            case Ability.Fireball:
+            case StateController.Ability.Fireball:
                 StopShootFireball();
                 break;
-            case Ability.Bow:
+            case StateController.Ability.Bow:
                 StopShootBow();
-                break;
-            case Ability.Dash:
-                StopDash();
-                break;
-            case Ability.Stamp:
-                StopStamp();
                 break;
             default:
                 break;
@@ -140,17 +175,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void StopShootBow()
     {
-
-    }
-
-    private void StopDash()
-    {
-
-    }
-
-    private void StopStamp()
-    {
-
+        animator.SetBool("Croushing", false);
     }
 
     private IEnumerator SpawnBullet()
@@ -160,9 +185,16 @@ public class PlayerShoot : MonoBehaviour
         if (shooting) StartCoroutine(SpawnBullet());
     }
 
-    private void SetAbility(Ability ability)
+    private IEnumerator SpawnArrow()
     {
-        this.currentAbility = ability;
+        Instantiate(arrowPrefab, shootPoint.position, shootPoint.rotation);
+        yield return new WaitForSeconds(bulletSpawnInterval);
+        if (shooting) StartCoroutine(SpawnArrow());
+    }
+
+    private void SetAbility(StateController.Ability ability)
+    {
+        StateController.currentAbility = ability;
     }
 
     private void OnEnable()
@@ -173,20 +205,4 @@ public class PlayerShoot : MonoBehaviour
     {
         controls.Disable();
     }
-}
-
-public enum Ability
-{
-    Fireball,
-    Bow,
-    Dash,
-    Stamp,
-    None
-}
-
-public enum DashDirection
-{
-    Left,
-    Right,
-    None
 }

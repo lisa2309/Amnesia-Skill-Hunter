@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3738230621243804409
+--- !u!1 &2211347114531339587
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3738230621243804411}
-  - component: {fileID: 3738230621243804410}
+  - component: {fileID: 2211347114531339585}
+  - component: {fileID: 2211347114531339586}
   m_Layer: 0
   m_Name: LevelLoader
   m_TagString: Untagged
@@ -17,29 +17,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3738230621243804411
+--- !u!4 &2211347114531339585
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3738230621243804409}
+  m_GameObject: {fileID: 2211347114531339587}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -65.940475, y: 9.387247, z: -984.0787}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3738230621243804410
+--- !u!114 &2211347114531339586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3738230621243804409}
+  m_GameObject: {fileID: 2211347114531339587}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c9b7a1c041c40e41aa84b3e717fbd4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GraveyardMiddleVariationsNoBoss:
+  - Graveyard_middle_2
+  - Graveyard_middle_3
+  - Graveyard_middle_4
+  - Graveyard_middle_5

@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     //config
     [SerializeField]
-    private float velocity = 10.0f;
+    private float velocity = 30.0f;
     [SerializeField]
     private int damage = 1;
     [SerializeField]
@@ -18,50 +18,59 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private LayerMask targetLayers;
     private Animator animator;
-    bool isTriggered = false;
+   // bool isTriggered = false;
     [SerializeField]
     private int damageRange = 2;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.velocity = velocity * transform.right;
         animator = GetComponent<Animator>();
     }
-    private void FixedUpdate()
+   /* private void FixedUpdate()
     {
         if(!isTriggered){
             rb.MovePosition(rb.position + new Vector2(transform.right.x, 0.0f) * velocity * Time.fixedDeltaTime);
         }
         
-    }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
         CircleCollider2D coll = gameObject.GetComponent<CircleCollider2D>();
         coll.radius = damageRange;
-        isTriggered = true;
+        //isTriggered = true;
 
         if ((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
+            //transform.position = this.transform.position;
+            rb.velocity = Vector2.zero;
             animator.SetTrigger("Expliosen");
         }
         else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
-            EnemyController hitEnemy = collision.gameObject.GetComponent<EnemyController>();
-            if (hitEnemy != null)
+            //EnemyController hitEnemy = collision.gameObject.GetComponent<EnemyController>();
+            EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
             {
-                Destroy(hitEnemy.gameObject);
+                enemyHealth.LooseHealth(damage);
+                //Destroy(enemyHealth.gameObject);
                 //FindObjectOfType<LevelLoader>().DecrementEnemyCount();
             }
             else
             {
-                if (collision.gameObject.GetComponent<PlayerHealth>().LooseHealth(damage))
+                PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
                 {
-                    SceneManager.LoadScene("Lisa's Scene");
+                    playerHealth.LooseHealth(damage);
+                    //SceneManager.LoadScene("Lisa's Scene");
                     //FindObjectOfType<LevelLoader>().RestartLevel();
                 }
             }
+            //transform.position = this.transform.position;
+            rb.velocity = Vector2.zero;
             animator.SetTrigger("Expliosen");
         }
     }

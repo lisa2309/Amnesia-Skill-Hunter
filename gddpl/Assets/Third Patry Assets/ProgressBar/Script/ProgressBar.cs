@@ -20,7 +20,7 @@ public class ProgressBar : MonoBehaviour
     public Color BarBackGroundColor;
     public Sprite BarBackGroundSprite;
     [Range(1f, 100f)]
-    public int Alert = 20;
+    public int Alert = 1;
     public Color BarAlertColor;
 
     [Header("Sound Alert")]
@@ -46,7 +46,7 @@ public class ProgressBar : MonoBehaviour
         }
     }
 
-    public GameObject player;
+    private GameObject player;
     private int maxHealth;
 
         
@@ -71,7 +71,7 @@ public class ProgressBar : MonoBehaviour
         barBackground.color = BarBackGroundColor; 
         barBackground.sprite = BarBackGroundSprite;
 
-        //player = GameObject.Find("PlayerCharacter");
+        player = GameObject.FindWithTag("Player");
         maxHealth = player.GetComponent<PlayerHealth>().maxHealth;
 
         UpdateValue(barValue);

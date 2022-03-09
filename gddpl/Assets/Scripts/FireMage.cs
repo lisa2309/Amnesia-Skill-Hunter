@@ -6,6 +6,7 @@ public class FireMage : MonoBehaviour
 
 {
     private Animator animator;
+    private Rigidbody2D rb;
 
     [Header("Movement Parameters")]
     [SerializeField]
@@ -38,8 +39,7 @@ public class FireMage : MonoBehaviour
     private Transform scanPointBack;
     [SerializeField]
     private Transform shootPoint;
-    [SerializeField]
-    private Transform player;
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +47,10 @@ public class FireMage : MonoBehaviour
          timeBtwShots = startTimeBtwShots;
 
          animator = GetComponent<Animator>();
+
+         rb = GetComponent<Rigidbody2D>();
+
+         player = GameObject.FindWithTag("Player");
     }
 
 
@@ -62,21 +66,22 @@ public class FireMage : MonoBehaviour
             }
             if(WallOrGapAhead() == false)
             {
-                if(Vector2.Distance(transform.position, player.position) > stoppingDistance)
+                if(Vector2.Distance(transform.position, player.transform.position) > stoppingDistance)
                 {
-                    Debug.Log("Move");
-                    transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+                    //Debug.Log("Move");
+                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
                 }
-                else if(Vector2.Distance(transform.position, player.position) < stoppingDistance 
-                && Vector2.Distance(transform.position, player.position) > retreaDistance)
+                else if(Vector2.Distance(transform.position, player.transform.position) < stoppingDistance 
+                && Vector2.Distance(transform.position, player.transform.position) > retreaDistance)
                 {
-                    Debug.Log("Test");
-                    transform.position = this.transform.position;
+                    //Debug.Log("Test");
+                    //transform.position = this.transform.position;
+                    rb.velocity = Vector2.zero;
 
                     if(timeBtwShots <= 0){
                         animator.SetTrigger("Shoot");
 
-                        Instantiate(projectile, shootPoint.position, shootPoint.rotation);
+                        //Instantiate(projectile, shootPoint.position, shootPoint.rotation);
 
                         timeBtwShots = startTimeBtwShots;
 
@@ -86,14 +91,15 @@ public class FireMage : MonoBehaviour
 
                     }
                 }
-                else if (Vector2.Distance(transform.position, player.position) < retreaDistance)
+                else if (Vector2.Distance(transform.position, player.transform.position) < retreaDistance)
                 {
                     Debug.Log("Retreat");
-                    transform.position = Vector2.MoveTowards(transform.position, player.position, -speed * Time.deltaTime);
+                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -speed * Time.deltaTime);
                 }
             } else if (WallOrGapAhead() == true) {
                // Debug.Log("Wall or Gap");
-                transform.position = this.transform.position;
+               // transform.position = this.transform.position;
+                rb.velocity = Vector2.zero;
             }
         }
     }
@@ -101,6 +107,7 @@ public class FireMage : MonoBehaviour
     private bool isAllowed(){
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("ShootFire")) return false;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death")) return false;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return false;
         return true;
     }
 
@@ -116,7 +123,7 @@ public class FireMage : MonoBehaviour
     private bool PlayerVisible()
     {
         bool playerHit = false;
-        RaycastHit2D hit = Physics2D.Raycast(scanPointBack.position, -transform.right, 100.0f, visibleLayers);
+        RaycastHit2D hit = Physics2D.Raycast(scanPointBack.position, -transform.right, 200.0f, visibleLayers);
         if (hit.collider != null)
         {
             playerHit = (targetLayers.value & (1 << hit.collider.gameObject.layer)) > 0;
@@ -129,6 +136,10 @@ public class FireMage : MonoBehaviour
     {
         if (transform.eulerAngles == Vector3.zero) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
         else transform.eulerAngles = Vector3.zero;
+    }
+
+    private void shootFire() {
+        Instantiate(projectile, shootPoint.position, shootPoint.rotation);
     }
 
 }
