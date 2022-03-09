@@ -50,11 +50,7 @@ public class Arrow : MonoBehaviour
             {
                 if (collision.gameObject.GetComponent<PlayerHealth>().LooseHealth(damage))
                 {
-                    //FindObjectOfType<LevelLoader>().RestartLevel();
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-                    // Der LevelLoader will nicht wie er soll
-                    //SceneManger... Geht
+                    FindObjectOfType<LevelLoader>().OnPlayerDeath();
                 }
 
             }

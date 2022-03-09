@@ -102,14 +102,16 @@ public class SkeletonController : MonoBehaviour
     private void DoDamageSlow()
     {
         if (detectHit())
-            playerHealth.LooseHealth(damageSlow);
+            if(playerHealth.LooseHealth(damageSlow))
+                FindObjectOfType<LevelLoader>().OnPlayerDeath();
     }
 
     //called from animation event so that damage check is done at proper time relative to the animation happening on screen
     private void DoDamageFast()
     {
-        if (detectHit())
-            playerHealth.LooseHealth(damageFast);
+        if(playerHealth.LooseHealth(damageSlow))
+            if (playerHealth.LooseHealth(damageSlow))
+                FindObjectOfType<LevelLoader>().OnPlayerDeath();
     }
 
 
