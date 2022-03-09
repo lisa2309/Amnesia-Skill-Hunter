@@ -14,7 +14,6 @@ public class PlayerShoot : MonoBehaviour
     //state
     private bool shooting;
     private Coroutine currentSpawnBulletInstance;
-    public Ability currentAbility;
 
     [SerializeField]
     private float cooldown = 2.0f;
@@ -70,7 +69,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        if(currentAbility == Ability.Fireball){
+        if(StateController.currentAbility == StateController.Ability.Fireball){
             Vector3 mousePos = inputMouse;
             Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPoint.position);
             mousePos.x = mousePos.x - shootPos.x;
@@ -88,18 +87,15 @@ public class PlayerShoot : MonoBehaviour
 
     private void StartShooting()
     {
-        switch (currentAbility)
+        switch (StateController.currentAbility)
         {
-            case Ability.Fireball:
+            case StateController.Ability.Fireball:
                 ShootFireball();
                 Debug.Log("FireBall");
                 break;
-            case Ability.Bow:
+            case StateController.Ability.Bow:
                 ShootBow();
                 Debug.Log("BOOOOOOOOOOOW");
-                break;
-            case Ability.Stamp:
-                Stamp();
                 break;
             default:
                 break;
@@ -155,16 +151,13 @@ public class PlayerShoot : MonoBehaviour
 
         movement.ResetRunSpeedModifier();
 
-        switch (currentAbility)
+        switch (StateController.currentAbility)
         {
-            case Ability.Fireball:
+            case StateController.Ability.Fireball:
                 StopShootFireball();
                 break;
-            case Ability.Bow:
+            case StateController.Ability.Bow:
                 StopShootBow();
-                break;
-            case Ability.Stamp:
-                StopStamp();
                 break;
             default:
                 break;
@@ -205,9 +198,9 @@ public class PlayerShoot : MonoBehaviour
         if (shooting) StartCoroutine(SpawnArrow());
     }
 
-    private void SetAbility(Ability ability)
+    private void SetAbility(StateController.Ability ability)
     {
-        this.currentAbility = ability;
+        StateController.currentAbility = ability;
     }
 
     private void OnEnable()
@@ -218,19 +211,4 @@ public class PlayerShoot : MonoBehaviour
     {
         controls.Disable();
     }
-}
-
-public enum Ability
-{
-    Fireball,
-    Bow,
-    Stamp,
-    None
-}
-
-public enum DashDirection
-{
-    Left,
-    Right,
-    None
 }

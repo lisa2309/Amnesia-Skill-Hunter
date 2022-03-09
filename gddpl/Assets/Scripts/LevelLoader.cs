@@ -25,7 +25,7 @@ public class LevelLoader : MonoBehaviour
         Debug.Log(currentSection);
         if (StateController.currentStage == 0)
         {
-            if(StateController.currentSection <= 2)
+            if(StateController.currentSection <= 1)
             {
                 StateController.currentSection++;
                 Debug.Log(StateController.currentSection);
