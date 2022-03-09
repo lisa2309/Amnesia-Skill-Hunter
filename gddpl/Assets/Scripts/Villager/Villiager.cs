@@ -36,6 +36,7 @@ public class Villiager : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        Physics2D.IgnoreLayerCollision(7, 7);
     }
 
     // Update is called once per frame

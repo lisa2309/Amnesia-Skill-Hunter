@@ -27,18 +27,23 @@ public class zuRettenderVillager : MonoBehaviour
     private LayerMask visibleLayers;
 
     [SerializeField]
+    private LayerMask endOfLevel;
+
+    [SerializeField]
     private Transform scanPoint;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        Physics2D.IgnoreLayerCollision(7, 7);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         if(isFree())Move();
+        if (reachedEndOfLevel()) Destroy(this.gameObject);
     }
 
     private void Move()
@@ -59,5 +64,16 @@ public class zuRettenderVillager : MonoBehaviour
             isFree = true;
         }
         return isFree;
+    }
+
+    private bool reachedEndOfLevel()
+    {
+        bool reachedEndOfLevel = false;
+        RaycastHit2D hit = Physics2D.Raycast(scanPoint.position, transform.right, vision, endOfLevel);
+        if (hit.collider != null)
+        {
+            reachedEndOfLevel = true;
+        }
+        return reachedEndOfLevel;
     }
 }

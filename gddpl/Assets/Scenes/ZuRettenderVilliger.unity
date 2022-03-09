@@ -1910,6 +1910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'PlayerCharacter '
       objectReference: {fileID: 0}
+    - target: {fileID: 5217649756335140664, guid: b1e005067151b144dab4503f90c8c091, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5217649756335140669, guid: b1e005067151b144dab4503f90c8c091, type: 3}
       propertyPath: m_SortingLayer
       value: 9
@@ -4809,9 +4813,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 355172709, guid: be1a7a6095384fe42913224e144bdca9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4005409643463368916, guid: be1a7a6095384fe42913224e144bdca9, type: 3}
       propertyPath: m_Name
       value: VillageArcher
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005409643463368916, guid: be1a7a6095384fe42913224e144bdca9, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4005409643463368919, guid: be1a7a6095384fe42913224e144bdca9, type: 3}
       propertyPath: m_RootOrder
@@ -4857,6 +4869,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4005409643463368920, guid: be1a7a6095384fe42913224e144bdca9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005409643463368920, guid: be1a7a6095384fe42913224e144bdca9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1112048591
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005409643463368921, guid: be1a7a6095384fe42913224e144bdca9, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: f7afe312e1021a94183ff637578141ed, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be1a7a6095384fe42913224e144bdca9, type: 3}
 --- !u!1 &1317054176
@@ -5136,6 +5160,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1228199661, guid: 05979223696d736469cd0dbc2f576564, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9125500290511836800, guid: 05979223696d736469cd0dbc2f576564, type: 3}
       propertyPath: levelLoader
       value: 
