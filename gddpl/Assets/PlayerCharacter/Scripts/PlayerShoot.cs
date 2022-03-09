@@ -47,9 +47,14 @@ public class PlayerShoot : MonoBehaviour
     private Vector2 inputMouse;
     Vector2 direction;
 
+    private Transform defaultShootPoint;
+
+    
     private void Awake()
     {
         controls = new Controls();
+
+        defaultShootPoint = shootPoint;
 
         controls.Gameplay.Power.performed += context => StartShooting();
         controls.Gameplay.Power.canceled += context => StopShooting();
@@ -82,6 +87,10 @@ public class PlayerShoot : MonoBehaviour
             } else {
                 shootPoint.rotation = Quaternion.Euler(new Vector3(0f, 0f, shootAngle));
             }
+        }
+        if(!(StateController.currentAbility == StateController.Ability.Fireball))
+        {
+            shootPoint = defaultShootPoint;
         }
     }
 

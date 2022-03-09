@@ -11,7 +11,7 @@ public static class StateController
     //Playerstate
     public static bool isGodModeEnabled = false;
     public static int currentPlayerHealth;
-    public static Ability currentAbility;
+    public static Ability currentAbility = Ability.Fireball;
 
     public enum Ability
     {
