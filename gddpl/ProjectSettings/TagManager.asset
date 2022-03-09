@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FireMage
   - Archer
+  - zuRettenderVillager
   layers:
   - Default
   - TransparentFX
