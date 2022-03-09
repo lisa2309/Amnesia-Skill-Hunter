@@ -148,11 +148,6 @@ public class PlayerShoot : MonoBehaviour
         
     }
 
-    private void Stamp()
-    {
-
-    }
-
     private void StopShooting()
     {
         shooting = false;
@@ -181,16 +176,6 @@ public class PlayerShoot : MonoBehaviour
     private void StopShootBow()
     {
         animator.SetBool("Croushing", false);
-    }
-
-    private void StopDash()
-    {
-
-    }
-
-    private void StopStamp()
-    {
-
     }
 
     private IEnumerator SpawnBullet()

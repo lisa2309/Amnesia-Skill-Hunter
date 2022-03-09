@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         CheckGrounded();
         ApplyFallingGravityScale();
         UpdateTimers();
-        Debug.Log(StateController.isGodModeEnabled);
+        //Debug.Log(StateController.isGodModeEnabled);
         Run();
 
         if (earlyJumpTimer > 0.0f && rememberGroundedTimer > 0.0f) 
@@ -143,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void ApplyFallingGravityScale()
     {
-        if (rb.velocity.y < 0.0f && !grounded) // Fix für Animation
+        if (rb.velocity.y < 0.0f && !grounded) // Fix fï¿½r Animation
         {
             rb.gravityScale = fallingGravityScale;
 

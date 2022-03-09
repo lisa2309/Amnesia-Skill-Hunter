@@ -45,9 +45,6 @@ public class zuRettenderVillager : MonoBehaviour
         if(isFree())Move();
         if (reachedEndOfLevel()) Destroy(this.gameObject);
     }
-
-    
-
     private void Move()
     {
         float horizontalVelocity = transform.right.x * moveSpeed * Time.fixedDeltaTime;
