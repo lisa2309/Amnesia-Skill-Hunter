@@ -14,6 +14,12 @@ public class PlayerMeele : MonoBehaviour
     private PlayerMovement playerMovement;
     private bool attacking;
 
+    [SerializeField]
+    private float attackCooldown = 1.0f;
+
+    private float lastAttacked = -9999;
+
+
     private void Awake()
     {
         controls = new Controls();
@@ -28,15 +34,18 @@ public class PlayerMeele : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasPressedThisFrame && Time.time > lastAttacked + attackCooldown)
         {
-            Attack();
+            //Attack();
+            animator.SetTrigger("Attack");
+            lastAttacked = Time.time;
+            Debug.Log(lastAttacked);
         }
     }
 
     private void Attack()
     {
-        animator.SetTrigger("Attack");
+        
         var hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
         foreach(var enemy in hitEnemies)
