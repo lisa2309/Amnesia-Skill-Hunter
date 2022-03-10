@@ -14,6 +14,11 @@ public class PlayerMeele : MonoBehaviour
     private PlayerMovement playerMovement;
     private bool attacking;
 
+    [SerializeField]
+    private float attackCooldown = 1.0f;
+
+    private float lastAttacked = -99999;
+
     private void Awake()
     {
         controls = new Controls();
@@ -28,9 +33,11 @@ public class PlayerMeele : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasPressedThisFrame && Time.time > lastAttacked + attackCooldown)
         {
             Attack();
+            lastAttacked = Time.time;
+            Debug.Log(lastAttacked);
         }
     }
 
