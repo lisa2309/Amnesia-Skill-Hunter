@@ -617,6 +617,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149d864443ddca94ba93b092e7acd5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1362296169 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2211347114531339586, guid: 79e7520ace36d814db87329fc351c34f, type: 3}
+  m_PrefabInstance: {fileID: 930232432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c9b7a1c041c40e41aa84b3e717fbd4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1362345057
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,22 +731,22 @@ PrefabInstance:
     - target: {fileID: 9125500290511836800, guid: 05979223696d736469cd0dbc2f576564, type: 3}
       propertyPath: levelLoader
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1362296169}
     - target: {fileID: 9125500290511836802, guid: 05979223696d736469cd0dbc2f576564, type: 3}
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9125500290511836802, guid: 05979223696d736469cd0dbc2f576564, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.29
+      value: -9.88
       objectReference: {fileID: 0}
     - target: {fileID: 9125500290511836802, guid: 05979223696d736469cd0dbc2f576564, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.04
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 9125500290511836802, guid: 05979223696d736469cd0dbc2f576564, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1899.6768
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9125500290511836802, guid: 05979223696d736469cd0dbc2f576564, type: 3}
       propertyPath: m_LocalRotation.w
@@ -771,11 +782,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9125500290511836803, guid: 05979223696d736469cd0dbc2f576564, type: 3}
       propertyPath: m_SortingLayer
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9125500290511836803, guid: 05979223696d736469cd0dbc2f576564, type: 3}
       propertyPath: m_SortingLayerID
-      value: 506312685
+      value: -1806571615
       objectReference: {fileID: 0}
     - target: {fileID: 9125500290511836814, guid: 05979223696d736469cd0dbc2f576564, type: 3}
       propertyPath: m_Name

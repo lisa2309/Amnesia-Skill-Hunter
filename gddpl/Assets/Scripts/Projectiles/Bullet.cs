@@ -64,7 +64,7 @@ public class Bullet : MonoBehaviour
                 PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
                 if (playerHealth != null)
                 {
-                    if(!playerHealth.LooseHealth(damage))
+                    if(playerHealth.LooseHealth(damage))
                         FindObjectOfType<LevelLoader>().OnPlayerDeath();
                 }
             }
