@@ -45,6 +45,8 @@ public class LevelLoader : MonoBehaviour
 
     public void OnPlayerDeath()
     {
+        StateController.resetLevelState();
+        StateController.resetPlayerStats();
         SceneManager.LoadScene("DorfTest");
     }
 

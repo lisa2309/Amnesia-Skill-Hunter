@@ -32,6 +32,7 @@ public class zuRettenderVillager : MonoBehaviour
     [SerializeField]
     private Transform scanPoint;
 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
