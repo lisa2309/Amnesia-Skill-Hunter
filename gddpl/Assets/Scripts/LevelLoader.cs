@@ -36,6 +36,7 @@ public class LevelLoader : MonoBehaviour
         }
         else if (StateController.defeatedMiniBoss)
         {
+            StateController.defeatedMiniBoss = false;
             SceneManager.LoadScene("Graveyard_middle_Dorfbewohner");
         }
         else
