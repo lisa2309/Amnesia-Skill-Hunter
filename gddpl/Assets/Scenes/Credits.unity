@@ -454,6 +454,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1127073116148310570, guid: e26772a9c290c3649bee8a030e48c9e3, type: 3}
+      propertyPath: m_Text
+      value: "Vielen Dank\n\nZum Beenden dr\xFCcke Escape und dann den Quitbutton"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127073116397404494, guid: e26772a9c290c3649bee8a030e48c9e3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -278
+      objectReference: {fileID: 0}
     - target: {fileID: 1127073116944280568, guid: e26772a9c290c3649bee8a030e48c9e3, type: 3}
       propertyPath: m_Text
       value: 'Programming
@@ -477,7 +485,14 @@ PrefabInstance:
 
 
 
-        Sounds'
+        Sounds
+
+
+
+
+        Special Thanks to
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 1127073116998519447, guid: e26772a9c290c3649bee8a030e48c9e3, type: 3}
       propertyPath: m_LocalScale.x
@@ -525,7 +540,8 @@ PrefabInstance:
         Lisa M\xFCller\nLars Sauer\nLucas Sch\xE4fer\nJulian Freundt\n\nAnna Lisa
         M\xFCller\nLars Sauer\nLucas Sch\xE4fer\nJulian Freundt\n\nAnna Lisa M\xFCller\nLars
         Sauer\nLucas Sch\xE4fer\nJulian Freundt\n\nAnna Lisa M\xFCller\nLars Sauer\nLucas
-        Sch\xE4fer\nJulian Freundt"
+        Sch\xE4fer\nJulian Freundt\n\nMusik: Wooseok Kim\n\nArt: Ansimuz and upln
+        \n"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e26772a9c290c3649bee8a030e48c9e3, type: 3}
