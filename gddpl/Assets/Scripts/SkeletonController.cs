@@ -172,9 +172,4 @@ public class SkeletonController : MonoBehaviour
     {
         return Vector2.Distance(this.transform.position, player.position);
     }
-
-    private void TurnTowardsPlayer()
-    {
-
-    }
 }
