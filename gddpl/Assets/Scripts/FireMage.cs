@@ -100,6 +100,19 @@ public class FireMage : MonoBehaviour
                // Debug.Log("Wall or Gap");
                // transform.position = this.transform.position;
                 rb.velocity = Vector2.zero;
+
+                if(timeBtwShots <= 0){
+                        animator.SetTrigger("Shoot");
+
+                        //Instantiate(projectile, shootPoint.position, shootPoint.rotation);
+
+                        timeBtwShots = startTimeBtwShots;
+
+                    } else {
+
+                        timeBtwShots -= Time.deltaTime;
+
+                    }
             }
         }
     }
@@ -107,7 +120,7 @@ public class FireMage : MonoBehaviour
     private bool isAllowed(){
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("ShootFire")) return false;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death")) return false;
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return false;
+        //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return false;
         return true;
     }
 
@@ -122,8 +135,9 @@ public class FireMage : MonoBehaviour
 
     private bool PlayerVisible()
     {
+        Vector3 scanPointBackPos = new Vector3(scanPointBack.position.x, scanPointBack.position.y + 0.8f,scanPointBack.position.z);
         bool playerHit = false;
-        RaycastHit2D hit = Physics2D.Raycast(scanPointBack.position, -transform.right, 200.0f, visibleLayers);
+        RaycastHit2D hit = Physics2D.Raycast(scanPointBackPos, -transform.right, 800.0f, visibleLayers);
         if (hit.collider != null)
         {
             playerHit = (targetLayers.value & (1 << hit.collider.gameObject.layer)) > 0;

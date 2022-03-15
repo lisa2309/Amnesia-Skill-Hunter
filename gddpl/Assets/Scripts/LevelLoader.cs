@@ -7,9 +7,6 @@ public class LevelLoader : MonoBehaviour
     [SerializeField]
     private List<string> GraveyardMiddleVariationsNoBoss;
 
-    int currentStage;
-    int currentSection;
-
     private void Start()
     {
 
@@ -22,7 +19,6 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        Debug.Log(currentSection);
         if (StateController.currentStage == 0)
         {
             if(StateController.currentSection <= 1)
@@ -34,8 +30,14 @@ public class LevelLoader : MonoBehaviour
             else
             {
                 StateController.currentStage++;
+                StateController.defeatedMiniBoss = true;
                 SceneManager.LoadScene("Graveyard_Middle_MiniBoss");
             }
+        }
+        else if (StateController.defeatedMiniBoss)
+        {
+            StateController.defeatedMiniBoss = false;
+            SceneManager.LoadScene("Graveyard_middle_Dorfbewohner");
         }
         else
         {
@@ -45,6 +47,8 @@ public class LevelLoader : MonoBehaviour
 
     public void OnPlayerDeath()
     {
+        StateController.resetLevelState();
+        StateController.resetPlayerStats();
         SceneManager.LoadScene("DorfTest");
     }
 

@@ -16,18 +16,19 @@ public class PlayerHealth : MonoBehaviour
     public void Awake()
     {
         animator = GetComponent<Animator>();
+        
     }
 
     private void Start()
     {
+        StateController.maxPlayerhealth = maxHealth;
+        if (StateController.currentPlayerHealth <= 0) StateController.resetPlayerStats();
+        
         progressBar = ProgressBar.FindObjectOfType<ProgressBar>();
-        if (StateController.currentPlayerHealth == 0)
-            StateController.currentPlayerHealth = maxHealth;
     }
 
     private void Update(){
         progressBar.BarValue = StateController.currentPlayerHealth;
-        //Debug.Log(StateController.currentPlayerHealth);
         checkGodMode();
     }
 

@@ -64,9 +64,8 @@ public class Bullet : MonoBehaviour
                 PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
                 if (playerHealth != null)
                 {
-                    playerHealth.LooseHealth(damage);
-                    //SceneManager.LoadScene("Lisa's Scene");
-                    //FindObjectOfType<LevelLoader>().RestartLevel();
+                    if(playerHealth.LooseHealth(damage))
+                        FindObjectOfType<LevelLoader>().OnPlayerDeath();
                 }
             }
             //transform.position = this.transform.position;
