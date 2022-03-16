@@ -135,9 +135,11 @@ public class PlayerMovement : MonoBehaviour
         {
             rememberGroundedTimer = timeToRemberGrounded;
             rb.gravityScale = 1.0f;
-
-            //animation
-            animator.SetBool("Falling", false);
+             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")){
+                 //animation
+                animator.SetBool("Falling", false);
+             }
+            
         }
         //animator.SetBool("Grounded", grounded);
     }
@@ -147,8 +149,10 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.gravityScale = fallingGravityScale;
 
-            //animation
-            animator.SetBool("Falling", true);
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")){
+                 //animation
+                animator.SetBool("Falling", true);
+             }
         }
     }
     private void SetEarlyJumpTimer()

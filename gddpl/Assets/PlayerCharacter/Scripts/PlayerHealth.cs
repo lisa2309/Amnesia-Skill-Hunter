@@ -40,7 +40,9 @@ public class PlayerHealth : MonoBehaviour
     public bool LooseHealth(int damage)
     {
         StateController.currentPlayerHealth -= damage;
-        animator.SetTrigger("Hit");
+         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) {
+            animator.SetTrigger("Hit");
+         }
         return StateController.currentPlayerHealth <= 0;
     }
 
