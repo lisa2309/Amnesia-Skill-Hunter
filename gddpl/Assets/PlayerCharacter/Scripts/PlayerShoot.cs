@@ -14,6 +14,11 @@ public class PlayerShoot : MonoBehaviour
     //state
     private bool shooting;
     private Coroutine currentSpawnBulletInstance;
+    [SerializeField]
+    private AudioSource arrowSound;
+
+    [SerializeField]
+    private AudioSource fireSound;
 
     [SerializeField]
     private float cooldown = 2.0f;
@@ -95,11 +100,11 @@ public class PlayerShoot : MonoBehaviour
         {
             case StateController.Ability.Fireball:
                 ShootFireball();
-                Debug.Log("FireBall");
+                
                 break;
             case StateController.Ability.Bow:
                 ShootBow();
-                Debug.Log("BOOOOOOOOOOOW");
+               
                 break;
             default:
                 break;
@@ -110,7 +115,7 @@ public class PlayerShoot : MonoBehaviour
     {
         if(GameObject.Find("FireBall") == null && GameObject.Find("FireBall(Clone)") == null)
         {
-            Debug.Log("Shoot");
+            fireSound.Play();
             shooting = true;
             currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
 
@@ -127,7 +132,7 @@ public class PlayerShoot : MonoBehaviour
         shootPointArrow.rotation = Quaternion.Euler(new Vector3(shootPointArrow.eulerAngles.x , shootPointArrow.eulerAngles.y, 0f));
         if (Time.time > lastAttacked + cooldown)
         {
-            Debug.Log("Shoot");
+            arrowSound.Play();
             shooting = true; 
             currentSpawnBulletInstance = StartCoroutine(SpawnArrow());
 
