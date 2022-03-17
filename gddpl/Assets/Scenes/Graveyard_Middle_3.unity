@@ -46450,6 +46450,17 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 2629165271543101003, guid: 8f2aa655f0efaaa4a84750610ba92bac, type: 3}
   m_PrefabInstance: {fileID: 1327691736}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1327691740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7059451551559551217, guid: 8f2aa655f0efaaa4a84750610ba92bac, type: 3}
+  m_PrefabInstance: {fileID: 1327691736}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05505973254a83f45b975b640bcfda66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1380954685
 GameObject:
   m_ObjectHideFlags: 0
@@ -47154,6 +47165,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 220022689, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1327691740}
+    - target: {fileID: 220022689, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateVolume
+      objectReference: {fileID: 0}
     - target: {fileID: 369715145, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
