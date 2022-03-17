@@ -45530,6 +45530,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2c8250fd6f2b754d89b3df93c339e63, type: 3}
+--- !u!114 &506999306 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7059451551559551217, guid: 8f2aa655f0efaaa4a84750610ba92bac, type: 3}
+  m_PrefabInstance: {fileID: 102416432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05505973254a83f45b975b640bcfda66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &595543965 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2211347114531339586, guid: 79e7520ace36d814db87329fc351c34f, type: 3}
@@ -45871,7 +45882,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 6.3353615, y: -0.3874781}
+  m_Offset: {x: 6.3353615, y: -1.465416}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -45882,7 +45893,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 17.326431, y: 2.1607924}
+  m_Size: {x: 17.326431, y: 4.3166676}
   m_EdgeRadius: 0
 --- !u!4 &1339195508
 Transform:
@@ -46294,14 +46305,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 220022689, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 506999306}
     - target: {fileID: 369715145, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 595543965}
-    - target: {fileID: 369715145, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartLevel
-      objectReference: {fileID: 0}
     - target: {fileID: 375711721906961744, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
       propertyPath: m_Name
       value: CanvasPause
@@ -46391,33 +46402,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4249085787052425061, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249085787052425061, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249085787052425061, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3669277041216453779}
-    - target: {fileID: 4249085787052425061, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249085787052425061, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpdateVolume
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249085787052425061, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MusicPlayer, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249085787052425061, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69b846de8b58fea4faa50aad554773e1, type: 3}
 --- !u!20 &2107445974 stripped

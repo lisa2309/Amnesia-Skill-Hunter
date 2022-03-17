@@ -42,7 +42,7 @@ public class PlayerMeele : MonoBehaviour
             //Attack();
             animator.SetTrigger("Attack");
             lastAttacked = Time.time;
-            Debug.Log(lastAttacked);
+            
         }
     }
 
@@ -55,7 +55,7 @@ public class PlayerMeele : MonoBehaviour
 
         foreach(var enemy in hitEnemies)
         {
-            Debug.Log("ATTACK!");
+            
             enemy.GetComponent<EnemyHealth>().LooseHealth(1);
         }
     }
