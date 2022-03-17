@@ -28,11 +28,7 @@ public class AbilityIndicator : MonoBehaviour
     private void Start()
     {
         oldAbility = StateController.currentAbility;
-        ability.sprite = none;
-        Color c;
-        c = ability.color;
-        c.a = 0f;
-        ability.color = c;
+        UpdateSprite();
     }
 
     void FixedUpdate()
