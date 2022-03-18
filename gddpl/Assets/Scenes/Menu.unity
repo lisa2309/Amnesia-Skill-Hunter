@@ -1162,6 +1162,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4834167676735868058, guid: 1e8103b27010afe40a9fa9f17a5ab42a, type: 3}
+      propertyPath: slider
+      value: 
+      objectReference: {fileID: 614359795}
+    - target: {fileID: 4834167676735868058, guid: 1e8103b27010afe40a9fa9f17a5ab42a, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 223429895}
