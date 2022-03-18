@@ -48,11 +48,9 @@ public class Arrow : MonoBehaviour
             }
             else
             {
-                PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-                if (playerHealth != null)
+                if (collision.gameObject.GetComponent<PlayerHealth>().LooseHealth(damage))
                 {
-                    if(playerHealth.LooseHealth(damage))
-                        FindObjectOfType<LevelLoader>().OnPlayerDeath();
+                    FindObjectOfType<LevelLoader>().OnPlayerDeath();
                 }
 
             }
