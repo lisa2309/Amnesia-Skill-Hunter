@@ -60,10 +60,12 @@ public class SkeletonController : MonoBehaviour
     private void FixedUpdate()
     {        
         if (WallOrGapAhead()) ChangeDirection();
-        if (PlayerVisible())
+        if (PlayerVisible() | GetDistance() <= range)
         {
+            Debug.Log ("SEE PLAYER");
             if (GetDistance() <= range)
             {
+                Debug.Log("IN RANGE PLAYER");
                 if (Time.time > lastAttackedAt + attackCooldown)
                 {
                     Attack();
@@ -150,7 +152,7 @@ public class SkeletonController : MonoBehaviour
     private bool WallOrGapAhead()
     {
         RaycastHit2D wallHit = Physics2D.Raycast(scanPoint.position, transform.right, turnDistance, obstacles);
-        RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 5.0f, obstacles);
+        RaycastHit2D floorHit = Physics2D.Raycast(scanPoint.position, -transform.up, scanPoint.localPosition.y + 3.0f, obstacles);
         return floorHit.collider == null || wallHit.collider != null;
     }
 
@@ -170,6 +172,8 @@ public class SkeletonController : MonoBehaviour
 
     private float GetDistance()
     {
-        return Vector2.Distance(this.transform.position, player.position);
+        if (PlayerVisible())
+            return Vector2.Distance(this.transform.position, player.position);
+        else return 100;
     }
 }

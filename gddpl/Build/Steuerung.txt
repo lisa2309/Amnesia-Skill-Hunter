@@ -1,0 +1,4 @@
+A/D - Laufen nach links/rechts 
+Space - Springen Linksklick - Schwertattacke 
+Rechtsklick - Fähigkeit 
+G - Godmode (Kein Verlust von Hitpoints)
