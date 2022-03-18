@@ -8,6 +8,7 @@ public static class StateController
     public static int currentStage = 0;
     public static int currentSection = 0;
     public static bool defeatedMiniBoss;
+    public static bool lastLevel = false;
 
     //Playerstate
     public static bool isGodModeEnabled = false;

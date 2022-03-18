@@ -7,6 +7,8 @@ public class LevelLoader : MonoBehaviour
     [SerializeField]
     private List<string> GraveyardMiddleVariationsNoBoss;
 
+    
+
     private void Start()
     {
 
@@ -38,6 +40,16 @@ public class LevelLoader : MonoBehaviour
         {
             StateController.defeatedMiniBoss = false;
             SceneManager.LoadScene("Graveyard_middle_Dorfbewohner");
+            StateController.lastLevel = true;
+        }
+        else if(StateController.lastLevel)
+        {
+            StateController.lastLevel = false;
+            SceneManager.LoadScene("DorfMitGerettetemDorfbewohner");
+        }
+        else if(SceneManager.GetActiveScene().name == "DorfMitGerettetemDorfbewohner")
+        {
+            SceneManager.LoadScene("Credits");
         }
         else
         {
