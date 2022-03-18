@@ -23,7 +23,7 @@ public class MusicPlayer : MonoBehaviour
     void Start()
     {
         audioSource.Play();
-        audioSource.volume = 0.2f;
+        //audioSource.volume = 0.2f;
     }
 	
 	/// <summary>
