@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Bogenschuetze.unity
     guid: 15656eec17c90eb4da326b6b5c3a6988
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Graveyard_Middle_1.unity
     guid: 5a7712e5585bcc24b941515d4c28499d
   - enabled: 1
