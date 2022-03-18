@@ -14,6 +14,8 @@ public static class StateController
     public static int currentPlayerHealth;
     public static int maxPlayerhealth;
     public static Ability currentAbility = Ability.None;
+    public static float currentMusicVolume = 0.5f;
+    public static float currentSoundEffectVolume = 0.5f;
 
     public enum Ability
     {
