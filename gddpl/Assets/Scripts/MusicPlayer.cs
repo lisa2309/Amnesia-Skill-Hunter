@@ -1,38 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-
-/* created by: SWT-P_WS_2021_Schienencode */
-/// <summary>
-/// Music Volume Setting.
-/// </summary>
-/// @source: https://www.youtube.com/watch?v=-xvoJ7Q4vw0
-/// Modified by: Ronja Haas & Anna-Lisa Müller
 public class MusicPlayer : MonoBehaviour
 {
-    /// <summary>
-    /// This is the audioSource file with the music
-    /// </summary>
-    public AudioSource audioSource;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private Slider slider;
 
-    /// <summary>
-    /// Start Music when play mode is active.
-    /// </summary>
-    /// @author Ronja Haas & Anna-Lisa Müller 
-    void Start()
+    private void Start()
     {
+        audioSource.volume = StateController.currentMusicVolume;
+        slider.value = StateController.currentMusicVolume;
         audioSource.Play();
-        //audioSource.volume = 0.2f;
+        
     }
-	
-	/// <summary>
-    /// Update the Volume when the slider is changed.
-    /// </summary>
-    /// @author Ronja Haas & Anna-Lisa Müller 
+
 	public void UpdateVolume(float volume)
 	{
 		audioSource.volume = volume;
+        StateController.currentMusicVolume = volume;
 	}
 
 }
