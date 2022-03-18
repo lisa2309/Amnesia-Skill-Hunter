@@ -7,10 +7,13 @@ public class Menu : MonoBehaviour
 {
     [SerializeField]
     LevelLoader levelloader;
+    [SerializeField]
+    private AudioSource startMusic;
 
     public void PlayGame()
     {
-        levelloader.StartGame();
+        StartCoroutine(music());
+        
     }
 
     public void QuitGame()
@@ -18,4 +21,10 @@ public class Menu : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
+
+     IEnumerator music(){
+         startMusic.Play ();
+         yield return new WaitForSeconds(2);
+         levelloader.StartGame();
+     }
 }

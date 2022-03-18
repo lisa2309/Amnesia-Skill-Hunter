@@ -485,11 +485,6 @@ PrefabInstance:
 
 
 
-        Sounds
-
-
-
-
         Special Thanks to
 
 '
@@ -539,9 +534,8 @@ PrefabInstance:
       value: "Anna Lisa M\xFCller\nLars Sauer\nLucas Sch\xE4fer\nJulian Freundt\n\nAnna
         Lisa M\xFCller\nLars Sauer\nLucas Sch\xE4fer\nJulian Freundt\n\nAnna Lisa
         M\xFCller\nLars Sauer\nLucas Sch\xE4fer\nJulian Freundt\n\nAnna Lisa M\xFCller\nLars
-        Sauer\nLucas Sch\xE4fer\nJulian Freundt\n\nAnna Lisa M\xFCller\nLars Sauer\nLucas
-        Sch\xE4fer\nJulian Freundt\n\nMusik: Wooseok Kim\n\nArt: Ansimuz and upln
-        \n"
+        Sauer\nLucas Sch\xE4fer\nJulian Freundt\n\n\nMusik and Sounds: Wooseok Kim\n\nArt:
+        Ansimuz, Szadi Art., Clembod and upln \n"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e26772a9c290c3649bee8a030e48c9e3, type: 3}

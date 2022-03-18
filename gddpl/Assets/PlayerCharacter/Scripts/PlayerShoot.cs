@@ -14,6 +14,11 @@ public class PlayerShoot : MonoBehaviour
     //state
     private bool shooting;
     private Coroutine currentSpawnBulletInstance;
+    [SerializeField]
+    private AudioSource arrowSound;
+
+    [SerializeField]
+    private AudioSource fireSound;
 
     [SerializeField]
     private float cooldown = 2.0f;
@@ -25,8 +30,6 @@ public class PlayerShoot : MonoBehaviour
     private float bulletSpawnInterval = 0.5f;
     [SerializeField]
     private float shootingRunModifier = 0.66f;
-    //[SerializeField]
-    //private Camera camera;
 
     [SerializeField]
     private GameObject villager;
@@ -43,18 +46,19 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private GameObject arrowPrefab;
     [SerializeField]
-    private Transform shootPoint;
+    private Transform shootPointFireBall;
+    [SerializeField]
+    private Transform shootPointArrow;
     private Vector2 inputMouse;
     Vector2 direction;
 
-    private Transform defaultShootPoint;
+
 
     
     private void Awake()
     {
         controls = new Controls();
 
-        defaultShootPoint = shootPoint;
 
         controls.Gameplay.Power.performed += context => StartShooting();
         controls.Gameplay.Power.canceled += context => StopShooting();
@@ -76,21 +80,17 @@ public class PlayerShoot : MonoBehaviour
     {
         if(StateController.currentAbility == StateController.Ability.Fireball){
             Vector3 mousePos = inputMouse;
-            Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPoint.position);
+            Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPointFireBall.position);
             mousePos.x = mousePos.x - shootPos.x;
             mousePos.y = mousePos.y - shootPos.y;
             direction = new Vector2(mousePos.x, mousePos.y);
             float shootAngle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-            if(inputMouse.x < shootPoint.position.x)
+            if(inputMouse.x < shootPointFireBall.position.x)
             {
-                shootPoint.rotation = Quaternion.Euler(new Vector3(180f, 0f, -shootAngle));
+                shootPointFireBall.rotation = Quaternion.Euler(new Vector3(180f, 0f, -shootAngle));
             } else {
-                shootPoint.rotation = Quaternion.Euler(new Vector3(0f, 0f, shootAngle));
+                shootPointFireBall.rotation = Quaternion.Euler(new Vector3(0f, 0f, shootAngle));
             }
-        }
-        if(!(StateController.currentAbility == StateController.Ability.Fireball))
-        {
-            shootPoint = defaultShootPoint;
         }
     }
 
@@ -100,11 +100,11 @@ public class PlayerShoot : MonoBehaviour
         {
             case StateController.Ability.Fireball:
                 ShootFireball();
-                Debug.Log("FireBall");
+                
                 break;
             case StateController.Ability.Bow:
                 ShootBow();
-                Debug.Log("BOOOOOOOOOOOW");
+               
                 break;
             default:
                 break;
@@ -115,10 +115,9 @@ public class PlayerShoot : MonoBehaviour
     {
         if(GameObject.Find("FireBall") == null && GameObject.Find("FireBall(Clone)") == null)
         {
-            Debug.Log("Shoot");
+            fireSound.Play();
             shooting = true;
             currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
-            //playerMovement.SetRunSpeedModifier(shootingRunModiefier);
 
             //animation
             animator.SetBool("Croushing", true);
@@ -130,13 +129,12 @@ public class PlayerShoot : MonoBehaviour
 
     private void ShootBow()
     {
-        shootPoint.rotation = Quaternion.Euler(new Vector3(shootPoint.eulerAngles.x , shootPoint.eulerAngles.y, 0f));
+        shootPointArrow.rotation = Quaternion.Euler(new Vector3(shootPointArrow.eulerAngles.x , shootPointArrow.eulerAngles.y, 0f));
         if (Time.time > lastAttacked + cooldown)
         {
-            Debug.Log("Shoot");
+            arrowSound.Play();
             shooting = true; 
             currentSpawnBulletInstance = StartCoroutine(SpawnArrow());
-            //playerMovement.SetRunSpeedModifier(shootingRunModiefier);
 
             //animation
             animator.SetBool("Croushing", true);
@@ -180,14 +178,14 @@ public class PlayerShoot : MonoBehaviour
 
     private IEnumerator SpawnBullet()
     {
-        Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+        Instantiate(bulletPrefab, shootPointFireBall.position, shootPointFireBall.rotation);
         yield return new WaitForSeconds(bulletSpawnInterval);
         if (shooting) StartCoroutine(SpawnBullet());
     }
 
     private IEnumerator SpawnArrow()
     {
-        Instantiate(arrowPrefab, shootPoint.position, shootPoint.rotation);
+        Instantiate(arrowPrefab, shootPointArrow.position, shootPointArrow.rotation);
         yield return new WaitForSeconds(bulletSpawnInterval);
         if (shooting) StartCoroutine(SpawnArrow());
     }

@@ -19,6 +19,9 @@ public class PlayerMeele : MonoBehaviour
 
     private float lastAttacked = -9999;
 
+    [SerializeField]
+    private AudioSource attackSound;
+
 
     private void Awake()
     {
@@ -39,18 +42,20 @@ public class PlayerMeele : MonoBehaviour
             //Attack();
             animator.SetTrigger("Attack");
             lastAttacked = Time.time;
-            Debug.Log(lastAttacked);
+            
         }
     }
 
     private void Attack()
     {
+
+        attackSound.Play();
         
         var hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
         foreach(var enemy in hitEnemies)
         {
-            Debug.Log("ATTACK!");
+            
             enemy.GetComponent<EnemyHealth>().LooseHealth(1);
         }
     }
